@@ -1,0 +1,73 @@
+This is BibTeX, Version 0.99d (TeX Live 2023)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: IEEEabrv.bib
+Database file #2: refs.bib
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Too many commas in name 1 of "Xin He, Subhankar Pal, Aporva Amarnath, Siying Feng, Dong-Hyeon Park, Austin Rovinski, Haojie Ye, Yuhan Chen, Ronald Dreslinski, Trevor Mudge" for entry sparse-tpu
+while executing---line 2403 of file IEEEtran.bst
+Too many commas in name 1 of "Xin He, Subhankar Pal, Aporva Amarnath, Siying Feng, Dong-Hyeon Park, Austin Rovinski, Haojie Ye, Yuhan Chen, Ronald Dreslinski, Trevor Mudge" for entry sparse-tpu
+while executing---line 2403 of file IEEEtran.bst
+Too many commas in name 1 of "Xin He, Subhankar Pal, Aporva Amarnath, Siying Feng, Dong-Hyeon Park, Austin Rovinski, Haojie Ye, Yuhan Chen, Ronald Dreslinski, Trevor Mudge" for entry sparse-tpu
+while executing---line 2403 of file IEEEtran.bst
+Too many commas in name 1 of "Xin He, Subhankar Pal, Aporva Amarnath, Siying Feng, Dong-Hyeon Park, Austin Rovinski, Haojie Ye, Yuhan Chen, Ronald Dreslinski, Trevor Mudge" for entry sparse-tpu
+while executing---line 2403 of file IEEEtran.bst
+Too many commas in name 1 of "Xin He, Subhankar Pal, Aporva Amarnath, Siying Feng, Dong-Hyeon Park, Austin Rovinski, Haojie Ye, Yuhan Chen, Ronald Dreslinski, Trevor Mudge" for entry sparse-tpu
+while executing---line 2403 of file IEEEtran.bst
+Too many commas in name 1 of "Xin He, Subhankar Pal, Aporva Amarnath, Siying Feng, Dong-Hyeon Park, Austin Rovinski, Haojie Ye, Yuhan Chen, Ronald Dreslinski, Trevor Mudge" for entry sparse-tpu
+while executing---line 2403 of file IEEEtran.bst
+Too many commas in name 1 of "Xin He, Subhankar Pal, Aporva Amarnath, Siying Feng, Dong-Hyeon Park, Austin Rovinski, Haojie Ye, Yuhan Chen, Ronald Dreslinski, Trevor Mudge" for entry sparse-tpu
+while executing---line 2403 of file IEEEtran.bst
+Warning--empty author in sys-verilog
+
+Done.
+You've used 19 entries,
+            4087 wiz_defined-function locations,
+            1437 strings with 23366 characters,
+and the built_in function-call counts, 13652 in all, are:
+= -- 874
+> -- 694
+< -- 17
++ -- 344
+- -- 167
+* -- 675
+:= -- 1967
+add.period$ -- 40
+call.type$ -- 19
+change.case$ -- 19
+chr.to.int$ -- 33
+cite$ -- 20
+duplicate$ -- 993
+empty$ -- 1086
+format.name$ -- 181
+if$ -- 3107
+int.to.chr$ -- 0
+int.to.str$ -- 19
+missing$ -- 287
+newline$ -- 114
+num.names$ -- 18
+pop$ -- 859
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 965
+stack$ -- 0
+substring$ -- 129
+swap$ -- 727
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 19
+warning$ -- 1
+while$ -- 26
+width$ -- 21
+write$ -- 217
+(There were 7 error messages)
