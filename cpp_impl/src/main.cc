@@ -14,7 +14,7 @@ int main(int argc, char **argv)
         {7, 2},
         {1, 1}
     };
-    Mpu<mac_t, 2, 2> mpu = Mpu<mac_t, 2, 2>(A, B);
+    Mpu<mac_t, 2> mpu = Mpu<mac_t, 2>(A, B);
     std::cout << "Init" << std::endl << mpu.to_string() << std::endl;
     for (int i = 0; i < 5; i++)
     {
@@ -22,12 +22,4 @@ int main(int argc, char **argv)
         std::cout << "Clock cycle #" << i+1 << std::endl << mpu.to_string() << std::endl;
     }
     mpu.print_mac_values();
-//    Mac<mac_t> my_mac;
-//    mac_t a, b, cin;
-//    a.value   = 4;
-//    b.value   = 5;
-//    cin.value = 2;
-//    mac_t result = my_mac.clock(a, b, cin); 
-//
-//    std::cout << result.value << std::endl;
 }
