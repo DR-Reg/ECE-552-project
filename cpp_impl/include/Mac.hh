@@ -23,9 +23,13 @@ struct mac_t_p
     }
 };
 
-/*- Actual mac unit -*/
+/*- Mac unit -*/
 /*
  * mac_t should be a mac_t_p<b>
+ *
+ * This Mac Unit operates in a
+ * Output Stationary manner, since the results
+ * are stored internally.
  */
 template <typename mac_t>
 class Mac

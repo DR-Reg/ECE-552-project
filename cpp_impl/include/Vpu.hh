@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <cstdlib>
 
-#include "Vmac.hh"
+#include "WsMac.hh"
 
 /*- Vector Processing Unit *-/
  * mac_t should be a mac_t_p<b> 
@@ -22,11 +22,11 @@ class Vpu
 {
     private:
         uint64_t counter;
-        bool enabled[N][N]; // only used for debug
+        bool enabled[N][N];
  
         mac_t acts_sram[N], weights_sram[N][N];
         mac_t init_acts_sram[N][N], init_weights_sram[N][N];
-        Vmac<mac_t> vmac_units[N][N]; 
+        WsMac<mac_t> vmac_units[N][N]; 
         mac_t right_latches[N][N];  // for left-right streaming of psums
         mac_t down_latches[N][N];  // for top-down streaming of acts
     public:

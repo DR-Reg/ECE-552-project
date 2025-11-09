@@ -255,5 +255,6 @@ CMakeFiles/main.dir/src/main.cc.o: \
  /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Mac.hh \
  /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/utility \
  /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/stl_relops.h \
- /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Vpu.hh \
- /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Vmac.hh
+ /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/MpuHsa.hh \
+ /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/WsMac.hh \
+ /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Vpu.hh

@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <utility>
 
-/*- Actual Vmac unit -*/
+/*- WsMac unit -*/
 /*
  * Functionally similar to MAC
  * except we also store the weight (b)
@@ -12,14 +12,20 @@
  * and when write_enable is off, we use
  * the internally stored value instead
  * of input.
+ *
+ * It returns the values of activations
+ * and partial sums for units that need
+ * that style of flow (anything that
+ * is weight stationary - hence the name ws
+ * - will need these)
  */
 template <typename mac_t>
-class Vmac
+class WsMac
 {
 private:
     mac_t weight;
 public:
-    Vmac()
+    WsMac()
     {
         weight = mac_t::ZERO;
     }

@@ -115,8 +115,9 @@ CMakeFiles/main.dir/src/main.cc.o: /Users/drr/Duke/Classes/ECE-552/ECE-552-proje
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/pthread.h \
   /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Mac.hh \
   /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Mpu.hh \
-  /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Vmac.hh \
+  /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/MpuHsa.hh \
   /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Vpu.hh \
+  /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/WsMac.hh \
   /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/aarch64-apple-darwin23/bits/atomic_word.h \
   /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/aarch64-apple-darwin23/bits/c++allocator.h \
   /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/aarch64-apple-darwin23/bits/c++config.h \
@@ -327,10 +328,6 @@ CMakeFiles/main.dir/src/main.cc.o: /Users/drr/Duke/Classes/ECE-552/ECE-552-proje
 
 /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/stl_tempbuf.h:
 
-/opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/locale_conv.h:
-
-/opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/stl_relops.h:
-
 /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/stl_iterator_base_funcs.h:
 
 /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/stl_heap.h:
@@ -340,10 +337,6 @@ CMakeFiles/main.dir/src/main.cc.o: /Users/drr/Duke/Classes/ECE-552/ECE-552-proje
 /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/stl_algo.h:
 
 /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/refwrap.h:
-
-/opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/memory_resource.h:
-
-/opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/range_access.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/machine/_types.h:
 
@@ -372,6 +365,10 @@ CMakeFiles/main.dir/src/main.cc.o: /Users/drr/Duke/Classes/ECE-552/ECE-552-proje
 /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/localefwd.h:
 
 /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/locale_facets_nonio.h:
+
+/opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/range_access.h:
+
+/opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/memory_resource.h:
 
 /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/aarch64-apple-darwin23/bits/error_constants.h:
 
@@ -451,13 +448,13 @@ CMakeFiles/main.dir/src/main.cc.o: /Users/drr/Duke/Classes/ECE-552/ECE-552-proje
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__wctype.h:
 
+/Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/WsMac.hh:
+
 /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/aarch64-apple-darwin23/bits/c++locale.h:
 
 /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/aarch64-apple-darwin23/bits/atomic_word.h:
 
-/opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/aarch64-apple-darwin23/bits/gthr.h:
-
-/Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Vmac.hh:
+/Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/MpuHsa.hh:
 
 /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Mpu.hh:
 
@@ -705,6 +702,10 @@ CMakeFiles/main.dir/src/main.cc.o: /Users/drr/Duke/Classes/ECE-552/ECE-552-proje
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint64_t.h:
 
+/opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/stl_relops.h:
+
+/opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/locale_conv.h:
+
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/arm/arch.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/ctype.h:
@@ -746,6 +747,8 @@ CMakeFiles/main.dir/src/main.cc.o: /Users/drr/Duke/Classes/ECE-552/ECE-552-proje
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_wctype.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uintmax_t.h:
+
+/opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/aarch64-apple-darwin23/bits/gthr.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types/_uint16_t.h:
 

@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Mpu.hh"
+#include "MpuHsa.hh"
 #include "Vpu.hh"
 
 typedef mac_t_p<8> mac_t;
@@ -19,24 +20,26 @@ int main(int argc, char **argv)
         9,
         3
     };
-    Mpu<mac_t, 2> mpu = Mpu<mac_t, 2>(A, B);
+    // Mpu<mac_t, 2> mpu = Mpu<mac_t, 2>(A, B);
+    MpuHsa<mac_t, 2> mpu = MpuHsa<mac_t, 2>(A, B);
     Vpu<mac_t, 2> vpu = Vpu<mac_t, 2>(v, A);
 
-    std::cout << "Init" << std::endl << vpu.to_string() << std::endl;
-    for (int i = 0; i < 5; i++)
-    {
-        vpu.clock();
-        std::cout << "Clock cycle #" << i+1 << std::endl << vpu.to_string() << std::endl;
-    }
-    mac_t *res = vpu.get_result(); 
-    std::cout << res[0] << "\n" << res[1] << "\n";
-    free(res);
-
-    // std::cout << "Init" << std::endl << mpu.to_string() << std::endl;
+    // std::cout << "Init" << std::endl << vpu.to_string() << std::endl;
     // for (int i = 0; i < 5; i++)
     // {
-    //     mpu.clock();
-    //     std::cout << "Clock cycle #" << i+1 << std::endl << mpu.to_string() << std::endl;
+    //     vpu.clock();
+    //     std::cout << "Clock cycle #" << i+1 << std::endl << vpu.to_string() << std::endl;
     // }
+    // mac_t *res = vpu.get_result(); 
+    // std::cout << res[0] << "\n" << res[1] << "\n";
+    // free(res);
+
+    std::cout << "Init" << std::endl << mpu.to_string() << std::endl;
+    for (int i = 0; i < 5; i++)
+    {
+        mpu.clock();
+        std::cout << "Clock cycle #" << i+1 << std::endl << mpu.to_string() << std::endl;
+    }
+    mpu.print_result_values();
     // mpu.print_mac_values();
 }
