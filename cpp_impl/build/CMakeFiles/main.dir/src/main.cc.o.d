@@ -259,4 +259,5 @@ CMakeFiles/main.dir/src/main.cc.o: \
  /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/MpuHsa.hh \
  /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/WsMac.hh \
  /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/VpuHsa.hh \
- /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Vpu.hh
+ /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Vpu.hh \
+ /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Hsa.hh

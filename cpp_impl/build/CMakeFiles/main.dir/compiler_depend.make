@@ -113,6 +113,7 @@ CMakeFiles/main.dir/src/main.cc.o: /Users/drr/Duke/Classes/ECE-552/ECE-552-proje
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/wchar.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/wctype.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/pthread.h \
+  /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Hsa.hh \
   /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Mac.hh \
   /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Mpu.hh \
   /Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/MpuHsa.hh \
@@ -609,6 +610,8 @@ CMakeFiles/main.dir/src/main.cc.o: /Users/drr/Duke/Classes/ECE-552/ECE-552-proje
 /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/bits/stl_construct.h:
 
 /opt/homebrew/Cellar/gcc/15.2.0/include/c++/15/aarch64-apple-darwin23/bits/c++config.h:
+
+/Users/drr/Duke/Classes/ECE-552/ECE-552-project/cpp_impl/include/Hsa.hh:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_key_t.h:
 
