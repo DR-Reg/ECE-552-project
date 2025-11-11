@@ -54,8 +54,8 @@ module VpuHsa #(parameter SIZE = 2, BIT_WIDTH = 4) (
 	wire [BIT_WIDTH-1:0] broadcast_channels [SIZE-1:0];     		// to broadcast on a per-column basis (i.e. not all at all times)
 
 	generate
-		for (i = 0; i < SIZE; i = i + 1) begin
-			for (j = 0; j < SIZE; j = j + 1) begin
+		for (i = 0; i < SIZE; i = i + 1) begin : row
+			for (j = 0; j < SIZE; j = j + 1) begin : col
 				wire [BIT_WIDTH-1:0] psum;
 				wire enable, wEnable;
 				assign enable = en & act_col_ix == j;           // only mult and acc when we are being broadcast an actiavion to this col
