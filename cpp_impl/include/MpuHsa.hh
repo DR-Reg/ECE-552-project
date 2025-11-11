@@ -50,6 +50,7 @@ public:
                 init_acts_sram[i][j] = acts_sram_p[j][i];
         for (uint64_t i = 0; i < N; i++)
             memcpy(init_weights_sram[i], weights_sram_p[i], N*sizeof(mac_t)); 
+        
         reset();
     }
 
