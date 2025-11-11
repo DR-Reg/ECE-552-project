@@ -1,0 +1,181 @@
+\documentclass[lettersize,journal]{IEEEtran}
+\usepackage{amsmath,amsfonts}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{array}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage[shortlabels]{enumitem}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{bm}
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+
+
+\begin{document}
+
+\title{ECE 552: Status Report\\ Micro-architectural Support for Packed Sparse Matrix Multiplication on Hybrid Systolic Arrays}
+
+\author{David Raibaut}
+
+\maketitle
+\begin{abstract}
+    This project pulls inspiration from two novel architectural methods for increasing NPU efficiency: Hybrid Systolic Arrays (HSA) \cite{HSA-paper} and Sparse-TPU \cite{sparse-tpu}.
+    HSA provides a way of reducing chip area by combining matrix and vector multiplies into a single systolic array. Sparse-TPU provides hardware support for sparse-packed matrices
+    thus increasing performance and reducing area. I will develop unit tests and benchmarks for the components to ensure functional correctness, compare HSA, sparse-tpu and their novel combination with more traditional
+    methods and analyze the performance and energy efficiency impact.
+\end{abstract}
+
+% \begin{IEEEkeywords}
+% Article submission, IEEE, IEEEtran, journal, \LaTeX, paper, template, typesetting.
+% \end{IEEEkeywords}
+
+\section{Introduction and Problem Statement}
+User demand for Large Language Model (LLM) inference has grown rapidly throughout the past years \cite{LLM-demand-growth}.
+On-edge inference has emerged as a powerful alternative to cloud-based solutions,
+thanks to its lower cost, decreased latency and heightened security with comparable
+performance for daily tasks. However, the limited memory capacity, energy constraints
+and sequential query model pose significant challenges for successfully deploying
+LLMs on edge, where user-facing applications require minimal latency (dictated by the decode stage \cite{HSA-paper})
+and a reduced energy footprint (dictated by external memory accesses (EMA)) \cite{HSA-paper}.
+
+A proposed solution is the use of sparse-matrix LLMs \cite{sparse-tpu}, such as SparseLLM \cite{sparse-llm},
+SparseGPT \cite{sparse-gpt} and KMZ \cite{KMZ}. These models compress larger trained models to reduce
+their number of parameters and hence reduce the memory requirements
+for the model and the number of operations to produce their
+computation by making their composing matrices sparser.
+
+Other proposals to enhance edge inference efficiency include the use of Hybrid Systolic Arrays (HSA) \cite{HSA-paper}.
+These units function as an intermediate point between Matrix Processing Units (MPU, used during pre-fill stage)
+and Vector Processing Units (VPU, used during decode stage), thus eliminating the need for both.
+This has been shown to effectively reduce the area and thus energy consumption and maintain
+comparable latency.
+
+In this project I plan to explore a novel HSA, by including hardware support for packed sparse matrices,
+essentially exploring the performance-efficiency tradeoff exposited by a combination of two previous methods.
+I will also implement sparse-matrix support on clock-gated MPUs and VPUs to show the advantage provided by
+the HSA architecture, and conversely non-sparse matrix supported MPUs, VPUs and HSAs to show the advantage provided by the HSA structure independently.
+
+\section{Related Work}
+There have been multiple proposals for on-edge LLM inference without the use of dedicated hardware accelerators,
+focusing mostly on CPU optimisation \cite{cpu-outperform-on-device-llm-inference}, \cite{enhancing-llm-inference-on-arm-cpu}, \cite{efficient-llm-inference-on-cpu},
+efficient model compression and quantization \cite{advances-low-bit-quant-llm-edge}, \cite{how-to-run-large-ai-model-edge-device} and
+even custom frameworks for edge-specific model design \cite{llama.cpp}, \cite{media-pipe}.
+
+Even then, due to the tight energy and performance efficiency constraints on edge devices, particularly mobile devices such as phones or wearables,
+most of these techniques incur large tradeoffs, such as requiring models to be very small \cite{cpu-outperform-on-device-llm-inference} ($\sim$1B parameters), 
+or finding significant performance degradation at sub-4-bit quantization \cite{advances-low-bit-quant-llm-edge}.
+
+Thus, given the rise in user-demand \cite{LLM-demand-growth} for low-latency high-performing LLMs, the most likely path forward seems to be dedicated
+hardware accelerators \cite{google-seminal-paper} optimised for this specific workload.
+
+In this project I will mostly refer to the HSA \cite{HSA-paper} and Sparse-TPU \cite{sparse-tpu} as they are the two most relevant sources due
+to their closeness with the proposed implementation. Other notable areas of research include heterogeneous systems \cite{heterogeneous}, \cite{NPU-PIM}, as a way of attempting to reduce
+the memory bandwidth bottleneck at the cost of architectural flexibility, compressed KV-cache implementations \cite{kv-cache-compressed} at the cost of added latency
+and KV cache reuse optimisations \cite{kv-cache-reuse} at the cost of decreased accuracy.
+
+\section{Research Questions}
+\begin{itemize}
+    \item How can existing HSA hardware be adapted to support packed sparse matrix multiplication?
+    \item How much performance and energy gains does packed sparse matrices provide in practice?
+    \item How much performance and energy gains does HSAs provide in practice?
+    \item How much performance and energy gains does the novel packed sparse matrix HSAs provide in practice?
+\end{itemize}
+
+\section{Proposed Solutions}
+% Modifications
+%% - VPU: adding pipelining, demux broadcast channels
+%% - Sparse: double-pumped columns
+%% - HSA: Choose one or other mode (mux)
+%% - SMPU: double pump columns?
+%% - SHSA: combine - for MMM how to double pump columns?
+
+\section{Evaluation}
+\subsection{Methodology}
+The hardware units will be implemented in SystemVerilog \cite{sys-verilog},
+and Xilinx Vivado will be used to synthesize them.
+They will be tested on the AMD Artix A7 FPGA with 63400 LUTs, 126800 FFs, and 4860Kb of SRAM. The following hardware
+components will be implemented:
+\begin{itemize}
+    \item SHSA: Sparse HSA 
+    \item HSA:  Regular HSA 
+    \item SMPU: Sparse MPU
+    \item MPU:  Regular MPU
+    \item SVPU: Sparse VPU
+    \item VPU:  Regular VPU
+    \item MCU: Multiply aCcumulate Unit
+    \item NPU package \footnote{Includes: Accumulate, Activate, Normalise units, Unified Buffer and Systolic datapaths, Instruction queue and control paths, Host-Device interface, External memory-device interface}
+\end{itemize}
+\emph{Note}: The sparse-packing software algorithm will be taken directly from \cite{sparse-tpu}.
+
+Given the memory and logic slice constraints on the Artix A7, I estimate I will be able to fit a 32 by 32 SA unit (see figure \ref{fig_1}), along with the accompanying driving logic, however this is subject to change.
+Assuming this, the activation and weight SRAMs will be 32kB and 16kB each in total.
+
+%% Progress (*=start,^=not start,B=bells&whistles):
+% CPP_IMPL: HVPU, HMPU, VPU, MPU, HSA, SVPU*, SMPU^, SHSA^, NPU^B
+% VERILOG: HVPU, ---  
+\subsection{Functional Validation}
+\begin{enumerate}[(a)]
+    \item \emph{Unit testing}: Test benches in SystemVerilog will be provided for each of the aforementioned units
+    \item \emph{Software implementation}: A C++ implementation of the units will be realised so benchmarks can be tested and outputs compared with the hardware.
+\end{enumerate}
+\subsection{Physical Characteristics}
+Vivado software provides tools for finding power: both compiler estimates and XADC System Monitor readings will be provided for power.
+
+Vivado also provides tools for assessing the maximal frequency, namely the timing report after synthesis,
+which includes the `Worst Negative Slack' (WNS) metric. In the case of a negative WNS (indicating timing violations),
+an analysis of the critical paths and iterative redesign/testing (including frequency increase) will be performed,
+until all designs meet the timing requirements. Ideally, all structures should operate at the same frequency, since MAC units
+and supporting NPU package will be identical as control variables.
+
+Vivado synthesis also provides data for logic cell and BRAM utilisation which will be used as an estimate for chip area.
+
+\subsection{Performance Impact}
+Performance impact will be compared across multiple metrics:
+\begin{enumerate}
+    \item Raw performance (TOPS)
+    \item Energy efficiency (pJ/Token)
+    \item Power efficiency (TOPS/W)
+    \item \textbf{*}Area (mm2)
+    \item \textbf{*}Accuracy (for sparse-packing, \% diff vs non-packed)
+\end{enumerate}
+All the items marked with an asterisk are considered to be implemented `time-permitting'.
+Raw performance will be approximated by estimating the operations per clock cycle,
+and energy efficiency will be calculated from the power efficiency (which can be estimated
+using Xilinx's XPower tool).
+\section{Milestones}
+The project is broken down into 5 milestones, spanning 6 weeks
+a more aggressive deadline so that possible unforeseen circumstances
+can be accommodated.
+\begin{enumerate}
+    \item \textbf{Milestone 1: C++ Software Implementation (Week 1):} The initial software implementation in C++ will be realised early on, to facilitate the hardware development later on and ensure functional validation from the get-go thus reducing debugging time.
+    \item \textbf{Milestone 2: MCU, SHSA, HSA, SMPU, MPU, SVPU, VPU Implementation in Verilog (Weeks 2-3):} The smaller modules will be implemented first in Verilog with unit testbenches to accompany them and periodic synthesis on the FPGA to guarantee it works there too.
+    \item \textbf{Milestone 3: NPU Package (Week 4):} Supporting logic for above modules so they can be tested on an FPGA acting as a NPU to the host.
+    \item \textbf{Milestone 4: Functional Validation and Performance Testing (Week 5):} Conduct functional validation and run performance benchmarks (TOPS calculation, *RetNet, *Llama2)
+    \item \textbf{Milestone 5: Final Evaluation and Reporting (Week 6):} Analyze performance and write report.
+\end{enumerate}
+\section{Division of Labour}
+All work will be done by me (David Raibaut).
+\section{References}
+% You can use a bibliography generated by BibTeX as a .bbl file.
+%  BibTeX documentation can be easily obtained at:
+%  http://mirror.ctan.org/biblio/bibtex/contrib/doc/
+%  The IEEEtran BibTeX style support page is:
+%  http://www.michaelshell.org/tex/ieeetran/bibtex/
+ 
+ % argument is your BibTeX string definitions and bibliography database(s)
+%\bibliography{IEEEabrv,../bib/paper}
+%
+% \section{Simple References}
+% You can manually copy in the resultant .bbl file and set second argument of $\backslash${\tt{begin}} to the number of references
+%  (used to reserve space for the reference number labels box).
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,refs}
+\vfill
+
+\end{document}
+
+
