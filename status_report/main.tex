@@ -17,7 +17,7 @@
 
 \begin{document}
 
-\title{ECE 552: Status Report\\ Micro-architectural Support for Packed Sparse Matrix Multiplication on Hybrid Systolic Arrays}
+\title{ECE 552: Project Status Report\\ Micro-architectural Support for Packed Sparse Matrix Multiplication on Hybrid Systolic Arrays}
 
 \author{David Raibaut}
 
@@ -92,73 +92,273 @@ and KV cache reuse optimisations \cite{kv-cache-reuse} at the cost of decreased 
 %% - HSA: Choose one or other mode (mux)
 %% - SMPU: double pump columns?
 %% - SHSA: combine - for MMM how to double pump columns?
+The proposed solution is that of a HSA structure with added hardware support for sparse-packed matrices.
+The use of the HSA structure allows for a lower chip area (since separate MPUs and VPUs are not required
+for the pre-fill and decode stages respectively) thus leading to lower leakage power and overall
+energy use. Hardware-support for sparse-packed matrices increase performance by significantly reducing the number
+of operations required to be computed (i.e. the number of MAC units), at the cost of some accuracy (due to the packing), and thus
+reducing overall SA latency. Moreover, by clock-gating the individual MAC units, the dynamic power of
+the whole chip can be reduced thus decreasing energy use too.
 
-\section{Evaluation}
-\subsection{Methodology}
-The hardware units will be implemented in SystemVerilog \cite{sys-verilog},
-and Xilinx Vivado will be used to synthesize them.
-They will be tested on the AMD Artix A7 FPGA with 63400 LUTs, 126800 FFs, and 4860Kb of SRAM. The following hardware
-components will be implemented:
+In this project I set out to explore whether this novel idea of a HSA with support for sparse-packed matrices (referred to throughout as SHSA)
+truly leads to the performance and energy improvements over single HSA or single sparse-packing, how much each
+of these individual improvements contributes and what the accuracy tradeoff is.
+
+\subsection{Vector, Matrix and Hybrid Dataflows in Detail}
+The VPU performs Matrix-Vector Multiplication (MVM) during the decode stage,
+and the MPU performs Matrix-Matrix Multiplication (MMM) during the pre-fill stage.
+There are many dataflows possible for these different operations, all functionally equivalent,
+but with different tradeoffs. The two most salient type of dataflows are:
+
 \begin{itemize}
-    \item SHSA: Sparse HSA 
-    \item HSA:  Regular HSA 
-    \item SMPU: Sparse MPU
-    \item MPU:  Regular MPU
-    \item SVPU: Sparse VPU
-    \item VPU:  Regular VPU
-    \item MCU: Multiply aCcumulate Unit
-    \item NPU package \footnote{Includes: Accumulate, Activate, Normalise units, Unified Buffer and Systolic datapaths, Instruction queue and control paths, Host-Device interface, External memory-device interface}
+    \item Output-stationary (OS): each MAC is responsible of holding the matrix entry at its position,
+        where the weight and activation data `flow' over the architecture
+    \item Weight-stationary (WS aka HSA-style): each MAC is pre-loaded with its weight value and the activation and partial
+        sums flow over the MAC array, with the final answer being received in waves at the end of the MAC array.
 \end{itemize}
-\emph{Note}: The sparse-packing software algorithm will be taken directly from \cite{sparse-tpu}.
+Because a HSA unit should be able to operate both MVM and MMM operations, the microarchitecture
+for the MPU and VPU units should be similar enough that they could be hybridised.
 
-Given the memory and logic slice constraints on the Artix A7, I estimate I will be able to fit a 32 by 32 SA unit (see figure \ref{fig_1}), along with the accompanying driving logic, however this is subject to change.
-Assuming this, the activation and weight SRAMs will be 32kB and 16kB each in total.
+I have decided to implement all my units in WS mode for the following reasons:
+\begin{enumerate}
+    \item Minimise EMA during decode stage. In output stationary, each cycle weights are streamed leading to longer latencies
+        or larger bandwidth, as during the decode stage I use $\mathcal{O}(1)$ activations but $\mathcal{O}(N)$ weights. In a WS
+        model I can reuse the loaded weights across operations or pipeline their loading and save bandwidth.
+    \item OS would mean $\mathcal{O}(N^2)$ MACs. Although this would be fine
+        during pre-fill, there would be significant under-utilisation of resources during the decode stage, where at most $\mathcal{O}(N)$ values are being calculated.
+        \emph{Note:} This is also true to some extent for the WS model, but MAC units can be gated trivially and moreover I have found a way to pipeline
+        the vector multiplications in a weight-stationary model to incur negligible under-utilisation (see figure \ref{wavefronts}).
+    \item OS would require significant differences in the dataflow and gating style in MVM and MMM modes for the HSA unit
+        leading to more complex control circuitry reducing the area and energy advantages that the hybrid approach provides.
+\end{enumerate}
+Thus I have opted for a WS dataflow model. My proposed method has the systolic `wavefront' move
+diagonally for MMM units and horizontally for MVM units (note: there is also a way to eliminate weight-loading
+wavefronts if we can reuse weights across operations). This is what has allowed me to pipeline the weight-loading,
+since at any given instance only units on the wavefront (i.e. a column for MVM or a diagonal for MMM) are being operated.
+See figure \ref{wavefronts} for a graphical representation.
 
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=0.75\textwidth]{MMM_pipes.png}
+    \caption{The pipelining model I came up with to mitigate the under-utilisation. Shown is the MMM mode, which is the most
+    complex, the MVM is identical except wavefronts are columns as opposed to diagonals. The arrows show the flow of partial sums
+    (can be either horizontal or vertical, but I typically take it to be horizontal) and partial sums (taken here to be left to right).
+    The `master' circuit driving this MPU/VPU is responsible of keeping track and reading the outputs for each of the different
+cycles when they are ready}
+    \label{wavefronts}
+\end{figure*}
+
+\subsection{Packed vs non-packed dataflows}
+The original STPU paper \cite{sparse-tpu} proposes a more flexible approach to handling sparse-matrix packing than traditional fixed-packed 2:1 methods.
+However, in doing this, significant complexity is introduced for the sake of maintaining the flexibility of a variable sparsity factor which does not
+map well onto the hybrid architecture.
+
+Moreover, the paper introduces sparse-matrix packing for the decode stage, since MMM operations
+introduce significant structural hazards in the systolic data flow, which is why I have adapted my roadmap to eliminate the sparse-MPU unit,
+as implementing such a unit is well beyond the scope of this project.
+
+Due to the increased complexity of the original STPU paper, I have proceeded to create my own more simplified approach for adapting VPUs and HSA (in MVM mode).
+This novel method, although incurring a slight loss in accuracy, allows for either a $\sim$2x gain in performance or a $\sim$2x gain in energy saving, with only
+a slight increase in die area.
+
+The crux of the packed (sparse) vs non-packed microarchitectures is as follows.
+Suppose we are working with a sparse model (i.e. weights have been pruned during training)
+with the following weights matrix:
+\begin{equation*}
+    W = \begin{bmatrix}
+        5 & 0 & 1 & 7 \\
+        0 & 4 & 0 & 1 \\
+        0 & 2 & 5 & 0 \\
+        4 & 0 & 0 & 0
+    \end{bmatrix}
+\end{equation*}
+On a WS model, any 0-weight entry would map to an essentially
+idle MAC unit.
+To reduce the sparsity, we pack the matrix through column merging: Each
+element's row is kept invariant and elements must be tagged
+with the column they came from. This allows for correction of
+the severe underutilisation of MAC units. However, I noticed
+two key things:
+\begin{itemize}
+    \item Reducing EMA is our priority. Since most models are low-bit
+        quantized ($Q < 8$), adding 
+        tags increases EMA if $Q < \log_2 N$.
+        Since weight matrices are typically large ($N \sim 2^{10}-2^{14}$ for small models),
+        including tags guarantees added EMA and latency.
+    \item Since each MAC now may need to keep track of values from multiple different
+        columns and make sure they match with the activation value,
+        MAC complexity increases.
+\end{itemize}
+So, my simplification is to merge only adjacent columns, and discard the lower-valued weight arbitrarily.
+Since we only merge adjacent columns, columns now need to be tagged solely with the parity of their
+column index (one bit) and the need for additional memory elements in each MAC is eliminated. For example,
+the matrix above would become:
+\begin{equation*}
+    W = \begin{bmatrix}
+        5,0 & 7,1 \\
+        4,1 & 1,1 \\
+        2,1 & 5,0 \\
+        4,0 & 0,0
+    \end{bmatrix}
+\end{equation*} 
+% There is some added complexity in this case: where before each cycle a single activation value
+% was broadcast to each column in our MAC array, now two different activation values must be broadcast,
+% since for example, for $A = [4\;8\; 12\; 16]$, during the first cycle both $4$ and $8$ must be broadcast
+% to the first column since the units holding $5,0$ and $4,0$ need the activation value $4$ whereas
+% $4,1$ and $2,1$ would need $8$. However, the key to notice here is that no new buses must be added
+% to broadcast these values, since we have essentially collapsed our horizontal dimension in two (so the
+% doubling of busses cancels out).
+
+The only added tradeoffs we incur with my simplification is the following:
+\begin{itemize}
+    \item Slight reduction in accuracy from sparse packing: for example, in above matrix, row 1's column 3's value had to be dropped.
+    \item 1 additional EMA per cycle, as each column now needs 2 activation values, which can be achieved with an extra read port to the activation memory, which is negligible in comparison
+        with the $\mathcal{O}(N)$ accesses for weights.
+    \item 1 additional input port and mux in each of the MACs: the additional input port is for the second activatino value, and the mux
+        will use the column parity tag as a select bit so that the appropriate activation value is used for the multiplication. This is far less than the
+        added MAC complexity from the STPU paper.
+\end{itemize}
+\section{Evaluation - Current Status}
+\subsection{Methodology}
+The hardware units will be implemented in both a C++ software simulator (custom-built from scratch, cycle accurate)
+as well as SystemVerilog \cite{sys-verilog} modules,
+with Xilinx Vivado to synthesize them.
+They will be tested on the AMD Artix A7 FPGA with 63400 LUTs, 126800 FFs, and 4860Kb of SRAM. 
+Given the memory and logic slice constraints on the Artix A7, I estimate I will be able to fit a 32 by 32 SA unit, along with the accompanying driving logic, however this is subject to change.
+Assuming this, the weight and activation SRAMs will be 64kB and 4kB each in total.
+\begin{table}[]
+    \centering
+    \caption{Project status}
+    \begin{tabular}{|l|l|l|}
+    \hline
+    Unit   & C++?   & Verilog? \\ \hline
+    MAC-WS & FV     & FV       \\ \hline
+    MAC-OS & FV     & NS       \\ \hline
+    VPU-OS & FV     & NS       \\ \hline
+    MPU-OS & FV     & NS       \\ \hline
+    VPU-WS & FV     & FV       \\ \hline
+    MPU-WS & FV     & NS       \\ \hline
+    HSA    & FV     & NS       \\ \hline
+    SVPU   & S-50\% & NS       \\ \hline
+    SHSA   & NS     & NS       \\ \hline
+    NPU\footnotemark
+        & NS     & NS       \\ \hline
+    \end{tabular}
+       
+    \label{project-status-table} 
+\end{table}
+\footnotetext{Due to the large ambition and scope of this project,
+    implementing the NPU unit has been moved to a secondary
+    objective, as this is not critical in showing the performance
+    difference between different VPU/MPU/HSA units, but rather
+    a `bells-and-whistles' unit required to run an actual LLM model
+    such as RetNet on the units. They can instead be benchmarked
+    using matrices directly extracted from the weight/activation values
+    of such models.
+}
+
+
+Table \ref{project-status-table} shows the status of the units being implemented.
+An `FV' indicates units that have been implemented and functionally
+validated (to a large extent, but not exhaustively - this will come at a later
+milestone), a `NS' indicates
+a unit that has not yet been started, and a `S-P\%' indicates
+a unit that has been started and is P\% percent of the way there.
+
+Figure \ref{2x2-hvpu} shows an 2x2 MAC circuit  of the HVPU
+implementation in verilog as generated by Vivado, and figure
+\ref{2x2-hvpu-trace} shows such a unit correctly
+performing the operation:
+\begin{equation*}
+    \begin{bmatrix}
+        2 & 3\\
+        4 & 5
+    \end{bmatrix}
+    \begin{bmatrix}
+        2\\
+        1
+    \end{bmatrix} = \begin{bmatrix}
+        7\\
+        13
+    \end{bmatrix}
+\end{equation*} 
+As you can see, this unit correctly implements the pipelined weight loading that was
+previously mentioned. \emph{Note:} The unit size (i.e. rows and columns
+of MAC units) and bus bit width was parametrised in Verilog.
+\begin{figure*}[!t]
+    \centering
+    \includegraphics[width=0.8\textwidth]{HVPU_2x2.jpg}
+    \caption{The 2x2 VPU-WS unit running on 4-bit quantisation}
+    \label{2x2-hvpu}
+
+\end{figure*}
+\begin{figure}[!t]
+    \centering
+    \includegraphics[width=2.5in]{2x2-hvpu-trace.png}
+    \caption{2x2 VPU-WS trace showing functional validity}
+    \label{2x2-hvpu-trace}
+\end{figure}
+
+You can access the GitHub repo for this project
+to see all my work so far ($\sim$ 1000 lines of C++,
+and $\sim$ 200 lines of verilog) at this link:
+\url{https://github.com/DR-Reg/ECE-552-project}
+ 
 %% Progress (*=start,^=not start,B=bells&whistles):
 % CPP_IMPL: HVPU, HMPU, VPU, MPU, HSA, SVPU*, SMPU^, SHSA^, NPU^B
 % VERILOG: HVPU, ---  
 \subsection{Functional Validation}
 \begin{enumerate}[(a)]
-    \item \emph{Unit testing}: Test benches in SystemVerilog will be provided for each of the aforementioned units
-    \item \emph{Software implementation}: A C++ implementation of the units will be realised so benchmarks can be tested and outputs compared with the hardware.
+    \item \emph{Unit testing}: Test benches in SystemVerilog will be provided for each of the aforementioned units. Currently the single VPU-WS unit (called VpuHsa.v) has an accompanying test bench (VpuHsa\_tb.v), with the rest of units pending.
+    \item \emph{Software implementation}: The C++ implementation itself has been made cycle accurate and has been functionally
+        validated and traced by hand for all units that have been implemented so far ($\sim$90\% of units). Most of the important
+        files for this can be found in cpp\_impl/include
 \end{enumerate}
 \subsection{Physical Characteristics}
 Vivado software provides tools for finding power: both compiler estimates and XADC System Monitor readings will be provided for power.
 
 Vivado also provides tools for assessing the maximal frequency, namely the timing report after synthesis,
-which includes the `Worst Negative Slack' (WNS) metric. In the case of a negative WNS (indicating timing violations),
-an analysis of the critical paths and iterative redesign/testing (including frequency increase) will be performed,
-until all designs meet the timing requirements. Ideally, all structures should operate at the same frequency, since MAC units
-and supporting NPU package will be identical as control variables.
+which includes the `Worst Negative Slack' (WNS) metric. In the case of a negative WNS,
+an analysis of the critical paths and iterative redesign/testing will be performed,
+until all designs meet the timing requirements. Ideally, all structures should operate at the same frequency, since
+supporting NPU package (either hardware implemented or software emulated) will be identical as control variables. However, in the case that they are not clocked equally,
+start-to-end latency and total energy expenditure will be used as the performance metrics.
 
 Vivado synthesis also provides data for logic cell and BRAM utilisation which will be used as an estimate for chip area.
 
 \subsection{Performance Impact}
 Performance impact will be compared across multiple metrics:
 \begin{enumerate}
+    \item Accuracy (for sparse-packing, \% diff vs non-packed)
     \item Raw performance (TOPS)
     \item Energy efficiency (pJ/Token)
     \item Power efficiency (TOPS/W)
-    \item \textbf{*}Area (mm2)
-    \item \textbf{*}Accuracy (for sparse-packing, \% diff vs non-packed)
+    \item Area (mm2) - directly from Vivado
 \end{enumerate}
-All the items marked with an asterisk are considered to be implemented `time-permitting'.
-Raw performance will be approximated by estimating the operations per clock cycle,
+Raw performance will be approximated by estimating the operations per clock cycle (or simply
+end-to-end latency in seconds in the case where different frequencies have to be used),
 and energy efficiency will be calculated from the power efficiency (which can be estimated
-using Xilinx's XPower tool).
-\section{Milestones}
-The project is broken down into 5 milestones, spanning 6 weeks
-a more aggressive deadline so that possible unforeseen circumstances
-can be accommodated.
+using Xilinx's XPower tool). Accuracy can be found by computing the percent-difference
+per-element between packed and non-packed results.
+\section{Revised Milestones}
+A slight modification is done to the milestones, since the NPU supporting package has become a secondary
+priority:
 \begin{enumerate}
-    \item \textbf{Milestone 1: C++ Software Implementation (Week 1):} The initial software implementation in C++ will be realised early on, to facilitate the hardware development later on and ensure functional validation from the get-go thus reducing debugging time.
-    \item \textbf{Milestone 2: MCU, SHSA, HSA, SMPU, MPU, SVPU, VPU Implementation in Verilog (Weeks 2-3):} The smaller modules will be implemented first in Verilog with unit testbenches to accompany them and periodic synthesis on the FPGA to guarantee it works there too.
-    \item \textbf{Milestone 3: NPU Package (Week 4):} Supporting logic for above modules so they can be tested on an FPGA acting as a NPU to the host.
-    \item \textbf{Milestone 4: Functional Validation and Performance Testing (Week 5):} Conduct functional validation and run performance benchmarks (TOPS calculation, *RetNet, *Llama2)
-    \item \textbf{Milestone 5: Final Evaluation and Reporting (Week 6):} Analyze performance and write report.
+    \item \textbf{Milestone 1: C++ Software Implementation (90\% done):} I expect to finish this by the end of this week 
+    \item \textbf{Milestone 2: Unit Implementation in Verilog (15\% done):} I expect to finish this by the middle of next week 
+    \item \textbf{Milestone 3: Functional Validation and Performance Testing (40\% done):} I have been validating my units as I made them,
+        but formal validation will be performed once all units are finished and performance metrics extracted.
+    \item \textbf{Milestone 4: Final Evaluation and Reporting (Not Started):} Analyze performance and write report, once milestone 3 is finished.
+    \item \textbf{Bells and Whistles: NPU Package (Not Started)} If possible, get these units to work so I can showcase my hardware accelerator running
+        a real workload start to finish.
 \end{enumerate}
+Although it may seem I am slightly behind with respect to my original planning, I am in fact ahead,
+since my decision to make the C++ software implementation cycle accurate means that the software
+is almost a 1:1 representation of the hardware, so making the Verilog modules takes significantly less
+time (1-2h per unit). Making the C++ implementation has allowed me to refocus the project to a
+novel idea for architectural support of packed matrices and is more realisable in the given time frame.
 \section{Division of Labour}
-All work will be done by me (David Raibaut).
+All work has been and will continue to be done by me (David Raibaut).
 \section{References}
 % You can use a bibliography generated by BibTeX as a .bbl file.
 %  BibTeX documentation can be easily obtained at:
