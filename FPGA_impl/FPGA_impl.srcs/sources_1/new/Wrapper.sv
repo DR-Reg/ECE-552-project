@@ -37,7 +37,7 @@ module Wrapper(
         .clk(clk_100mhz),
         .probe0(UART_TXD_IN),
         .probe1(frame_ready),
-        .probe2(frame_received),
+        .probe2(uart_data_frame),
         .probe3(rx_data_frame)
     );
 
@@ -79,7 +79,9 @@ module Wrapper(
      
 	reg [31:0] cycle_ctr;
 
-	reg [$clog2(SIZE)-1:0] result_index;
+	// reg [$clog2(SIZE)-1:0] result_index;
+    // make 7 bits so fits nicely into transmission packet
+    reg [6:0] result_index;
     reg [31:0] transmission_ctr;
     
     reg [31:0] uart_data_frame;
@@ -169,36 +171,38 @@ module Wrapper(
             result_index     <= 0;
             send_aligner     <= 1;
         end else begin
-            if (operating_mode != 2'b11) begin
+            transmission_ctr <= transmission_ctr + 1;
+            if (operating_mode == 2'b11) begin
+                if (frame_ready && rx_data_frame == 32'h0C0C0C0C) begin
+                    send_aligner <= 0;      // host is aligned
+                end 
+                if (transmission_ctr == 2000) begin
+                    if (send_aligner) begin
+                        uart_data_frame <= 32'hDEADBEEF;
+                        
+                    end else begin
+                        uart_data_frame[31]    <= 0;                    // message -> msb = 0
+                        uart_data_frame[30]    <= 0;                    // acts/sram flag does not matter as only results.
+                        uart_data_frame[29:23] <= 0;                    // vector, x-index = 0
+                        uart_data_frame[22:16] <= result_index;         // y-index
+                        uart_data_frame[15:BIT_WIDTH]  <= 0;            // left-pad data with 0
+                        uart_data_frame[BIT_WIDTH-1:0] <= result[result_index]; // data
+                        // uart_data_frame <= 32'h00DA221D;
+                    end
+                    uart_send_signal <= 1;
+                end else if (transmission_ctr >= 2002) begin
+                    result_index <= result_index == SIZE - 1 ? 0 : result_index + 1;
+                    uart_send_signal <= 0;
+                    transmission_ctr <= 0;  // overrides increment
+                end else begin
+                    uart_send_signal <= uart_send_signal;
+                end
+            end else begin
                 // So that when we do switch into transmission mode
                 // we begin by performing the alignment handshake
                 // must put this up here and not in an else guard down below
                 // since we may switch mode before transmission_ctr reaches 2000
                 send_aligner <= 1;
-            end
-            transmission_ctr <= transmission_ctr + 1;
-            if (transmission_ctr == 2000) begin
-                if (operating_mode == 2'b11) begin
-                    if (send_aligner) begin
-                        uart_data_frame <= 32'hDEADBEEF;
-                        if (frame_ready && frame_received == 32'h0C0C0C0C) begin
-                            send_aligner <= 0;      // host is aligned
-                        end
-                    end else begin
-                        // uart_data_frame[30:24] <= 0;            // vector, x-index = 0
-                        // uart_data_frame[22:15] <= result_index;   // y-index
-                        // uart_data_frame[3:0] <= result[result_index]; // data
-                        // uart_data_frame <= result[0];
-                        uart_data_frame <= 32'h00DA221D;
-                    end
-                    uart_send_signal <= 1;
-                end
-            end else if (transmission_ctr >= 2002) begin
-                result_index <= result_index == SIZE - 1 ? 0 : result_index + 1;
-                uart_send_signal <= 0;
-                transmission_ctr <= 0;  // overrides increment
-            end else begin
-                uart_send_signal <= uart_send_signal;
             end
         end
     end
@@ -213,7 +217,6 @@ module Wrapper(
 
     wire frame_ready;
     wire [31:0] rx_data_frame;
-    reg [31:0] frame_received;
     SerialReceiver #(.FRAME_WIDTH(32)) UART_RECEIVER(
             .clk_uart(clk_uart),
             .rx(UART_TXD_IN),
@@ -222,6 +225,4 @@ module Wrapper(
             .frame_ready(frame_ready),
             .data_frame(rx_data_frame)
     );
-    always @(posedge frame_ready)
-        frame_received <= rx_data_frame;
 endmodule

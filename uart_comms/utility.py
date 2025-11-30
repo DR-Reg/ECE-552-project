@@ -69,7 +69,7 @@ class SerialPort:
         print("Asserted misalignment =", mis_align, "dropped", 4-mis_align, "to correct")
         print("Ready to receive data")
         self.ser.write(bytes([0x0C]*4))
-        print("Sent the 'OC' (ok), waiting for valid messages...")
+        print("Sent the 1st OK (0C), waiting for valid messages...")
         while True:
             word = self.ser.read(4)
             if word:
@@ -83,9 +83,17 @@ class SerialPort:
                         if verb:
                             print("Extra deadbeef receieved, still waiting for messages...")
                 else:
-                    print("Received a message!", word.hex())
+                    x_ix = self.get_bit_slice(n, 29, 23)
+                    y_ix = self.get_bit_slice(n, 22, 16)
+                    data = self.get_bit_slice(n, 15, 0)
+                    if verb:
+                        print(f"Received result ({word.hex()}) for posn ({x_ix}, {y_ix}), data = {data}")
 
-
+                    result[y_ix] = data
+            if len([e for e in result if e is None]) == 0:
+                print("Finished receiving, sending 2nd OK (1C)")
+                self.ser.write(bytes([0x1C]*4))
+                return result
     def bytes_to_num(self,word):
         # assuming word is 4 bytes
         return word[3] + (word[2] << 8) + (word[1] << 16) + (word[0] << 24)
@@ -93,7 +101,10 @@ class SerialPort:
     def get_bit(self, n, ix):
         # gets bit in n using verilog indexing (i.e. lsb has ix = 0)
         return (n & (1<<ix))>>ix
-
+    
+    def get_bit_slice(self, n, hi, lo):
+        # get slice of bits using verilog indexing
+        return (n & ((1<<(hi+1))-1)&~((1<<lo)-1))>>lo
     def write_data(self, data):
         for val in data:
             self.ser.write(bytes([val]))
