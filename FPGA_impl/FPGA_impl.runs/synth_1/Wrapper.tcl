@@ -98,6 +98,7 @@ read_mem {
 }
 read_verilog -library xil_defaultlib -sv {
   C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/DeMux.sv
+  C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/SerialReceiver.sv
   C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/SerialTransmitter.sv
   C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv
   C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/WsMac.sv

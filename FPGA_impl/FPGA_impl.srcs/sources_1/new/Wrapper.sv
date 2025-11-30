@@ -35,10 +35,10 @@ module Wrapper(
 
     ila_0 debug_ila (
         .clk(clk_100mhz),
-        .probe0(UART_RXD_OUT),
-        .probe1(clk_uart),
-        .probe2(cycle_ctr),
-        .probe3({result[1], result[0]})
+        .probe0(UART_TXD_IN),
+        .probe1(frame_ready),
+        .probe2(frame_received),
+        .probe3(rx_data_frame)
     );
 
 
@@ -197,5 +197,18 @@ module Wrapper(
             
             .tx(UART_RXD_OUT)
     );
-    
+
+    wire frame_ready;
+    wire [7:0] rx_data_frame;
+    reg [7:0] frame_received;
+    SerialReceiver UART_RECEIVER(
+            .clk_uart(clk_uart),
+            .rx(UART_TXD_IN),
+            .sys_reset(sys_reset),
+            
+            .frame_ready(frame_ready),
+            .data_frame(rx_data_frame)
+    );
+    always @(posedge frame_ready)
+        frame_received <= rx_data_frame;
 endmodule
