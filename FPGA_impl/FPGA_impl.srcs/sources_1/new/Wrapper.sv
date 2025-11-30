@@ -79,12 +79,10 @@ module Wrapper(
      
 	reg [31:0] cycle_ctr;
 
-    // TODO: parametrise data frames and result index
-    // for now: 4 bit result, 4 bit position (by up to 16-by-16)
-	reg [3:0] result_index;
+	reg [$clog2(SIZE)-1:0] result_index;
     reg [31:0] transmission_ctr;
     
-    reg [7:0] uart_data_frame;
+    reg [30:0] uart_data_frame;
     reg uart_send_signal;
 
     initial begin
@@ -150,6 +148,13 @@ module Wrapper(
      * To allow accurate sampling
      */
 
+    // One Transmitted packet (FPGA->PC):
+    // [X <-- 7 bit x-index --> <-- 7 bit y-index --> <-- 16-bit data -->]
+
+    // One Received packet (PC->FPGA):
+    // [<-- 1 bit acts/weights --> <-- 7 bit x-index --> <-- 7 bit y-index --> <-- 16-bit data -->]
+
+    // Each packet is 31 bits, plus parity bit added by SerialReceiver/SerialTransmitter
     
     /* 2'b00 defaults, does nothing */
     /* 2'b01 Receiving: TODO */
@@ -162,17 +167,19 @@ module Wrapper(
             result_index <= 0;
         end else begin
             transmission_ctr <= transmission_ctr + 1;
-            if (transmission_ctr == 1000) begin
+            if (transmission_ctr == 2000) begin
                 if (operating_mode == 2'b11) begin
-                    uart_data_frame[7:4] <= result_index;
-                    uart_data_frame[3:0] <= result[result_index];
+                    // uart_data_frame[30:24] <= 0;            // vector, x-index = 0
+                    // uart_data_frame[22:15] <= result_index;   // y-index
+                    // uart_data_frame[3:0] <= result[result_index]; // data
+                    uart_data_frame <= 31'h000DEAD;
                     // uart_data_frame <= result[0];
                 end else begin
-                    uart_data_frame <= 2'hDE;
+                    uart_data_frame <= 31'h000DEAD;
                 end
         
                 uart_send_signal <= 1;
-            end else if (transmission_ctr >= 1002) begin
+            end else if (transmission_ctr >= 2002) begin
                 result_index <= result_index == SIZE - 1 ? 0 : result_index + 1;
                 uart_send_signal <= 0;
                 transmission_ctr <= 0;  // overrides increment
@@ -190,7 +197,7 @@ module Wrapper(
     //     end
     //     LED <= {1'b1, operating_mode, transmission_ctr[12:0]};
     // end
-    SerialTransmitter UART_TRANSMITTER(
+    SerialTransmitter #(.FRAME_WIDTH(31)) UART_TRANSMITTER(
             .data_frame(uart_data_frame),
             .send(uart_send_signal),
             .clk_uart(clk_uart),
@@ -199,9 +206,9 @@ module Wrapper(
     );
 
     wire frame_ready;
-    wire [7:0] rx_data_frame;
-    reg [7:0] frame_received;
-    SerialReceiver UART_RECEIVER(
+    wire [30:0] rx_data_frame;
+    reg [30:0] frame_received;
+    SerialReceiver #(.FRAME_WIDTH(31)) UART_RECEIVER(
             .clk_uart(clk_uart),
             .rx(UART_TXD_IN),
             .sys_reset(sys_reset),

@@ -30,11 +30,11 @@ class SerialPort:
     def read_data(self, result_size, verb=0):
         result = [None for i in range(result_size)]
         while True:
-            byte = ser.read(1)
+            byte = self.ser.read(4)
             if byte:
-                n = byte[0]
                 if verb:
-                    print("Received:", bin(n))
+                    print("Received:", byte.hex())
+                continue
                 # Extract result index:
                 res_ix = (n & 0xf0) >> 4
                 res_val = n & 0x0f

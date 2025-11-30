@@ -25,37 +25,39 @@ module SerialTransmitter #(parameter FRAME_WIDTH = 8) (
     input send,                             // this should pulse on for 1 clk_uart cycle to begin transmission
     input clk_uart,                         // expects this to be 16 times the clock rate
 
-    output reg tx
+    output tx
 );
-
-    reg [FRAME_WIDTH + 2:0] send_frame;            // <start><frame><even parity><stop>
-    reg [3:0] counter;                             // for baud division, 
-    reg [$clog2(FRAME_WIDTH+3):0] bit_counter;     // what bit currently sending, need one more
-                                                   // to avoid ovf in stop sending guard
-
+    reg [7:0] cycle_ctr; 
+    reg [$clog2(FRAME_WIDTH / 8):0] byte_counter;             // for current_byte, 
     reg sending;
+    reg send_signal;
+    reg [7:0] current_byte;
+
+    SerialByteTransmitter UART_BYTE_TRANSMITTER(
+        .data_frame(current_byte),
+        .send(send_signal),
+        .clk_uart(clk_uart),
+        .tx(tx)
+    );
 
     always @(posedge clk_uart) begin
         if (sending) begin
-            tx = send_frame[bit_counter];
-            if (counter == 15) begin
-                bit_counter = bit_counter + 1;
-                if (bit_counter == FRAME_WIDTH+3) begin
-                    sending = 0;
-                end
-                counter = 0;
+            current_byte <= data_frame[byte_counter*8 +: 8];
+            cycle_ctr <= cycle_ctr + 1;
+            if (cycle_ctr == 1) begin
+                send_signal <= 0;
+            // 16*(1+8+1+1)= 176
+            end else if (cycle_ctr == 175) begin
+                byte_counter <= byte_counter + 1;
+                send_signal <= 1;
+                cycle_ctr <= 0;
             end
-            counter += 1;                               // counter automatically wraps
-        end else if (send) begin                        // Guard after so don't stop sending halfway
-            send_frame[FRAME_WIDTH+2] = 1;              // stop bit
-            send_frame[FRAME_WIDTH+1] = ^data_frame;    // parity
-            send_frame[FRAME_WIDTH:1] = data_frame;     // LSB first per UART protocol
-            send_frame[0]             = 0;              // start bit
-            counter = 0;
-            sending = 1;
-            bit_counter = 0;
-        end else begin
-            tx = 1;                         // idle set to high
+        end else if (send) begin                        
+            sending <= 1;
+            current_byte <= data_frame[7:0];
+            byte_counter <= 0;
+            send_signal <= 1;
+            cycle_ctr <= 0;
         end
     end
 endmodule
