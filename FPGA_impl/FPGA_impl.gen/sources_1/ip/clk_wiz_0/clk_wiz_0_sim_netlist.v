@@ -1,7 +1,7 @@
 // Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2021.1 (win64) Build 3247384 Thu Jun 10 19:36:33 MDT 2021
-// Date        : Sat Nov 29 16:55:10 2025
+// Date        : Mon Dec  1 02:12:29 2025
 // Host        : P2-07 running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               c:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_sim_netlist.v
@@ -15,32 +15,38 @@
 (* NotValidForBitStream *)
 module clk_wiz_0
    (clk100,
+    clk_uart,
     reset,
     locked,
     clk_in1);
   output clk100;
+  output clk_uart;
   input reset;
   output locked;
   input clk_in1;
 
   wire clk100;
   (* IBUF_LOW_PWR *) wire clk_in1;
+  wire clk_uart;
   wire locked;
   wire reset;
 
   clk_wiz_0_clk_wiz inst
        (.clk100(clk100),
         .clk_in1(clk_in1),
+        .clk_uart(clk_uart),
         .locked(locked),
         .reset(reset));
 endmodule
 
 module clk_wiz_0_clk_wiz
    (clk100,
+    clk_uart,
     reset,
     locked,
     clk_in1);
   output clk100;
+  output clk_uart;
   input reset;
   output locked;
   input clk_in1;
@@ -49,11 +55,12 @@ module clk_wiz_0_clk_wiz
   wire clk100_clk_wiz_0;
   wire clk_in1;
   wire clk_in1_clk_wiz_0;
+  wire clk_uart;
+  wire clk_uart_clk_wiz_0;
   wire clkfbout_buf_clk_wiz_0;
   wire clkfbout_clk_wiz_0;
   wire locked;
   wire reset;
-  wire NLW_plle2_adv_inst_CLKOUT1_UNCONNECTED;
   wire NLW_plle2_adv_inst_CLKOUT2_UNCONNECTED;
   wire NLW_plle2_adv_inst_CLKOUT3_UNCONNECTED;
   wire NLW_plle2_adv_inst_CLKOUT4_UNCONNECTED;
@@ -79,6 +86,10 @@ module clk_wiz_0_clk_wiz
        (.I(clk100_clk_wiz_0),
         .O(clk100));
   (* BOX_TYPE = "PRIMITIVE" *) 
+  BUFG clkout2_buf
+       (.I(clk_uart_clk_wiz_0),
+        .O(clk_uart));
+  (* BOX_TYPE = "PRIMITIVE" *) 
   PLLE2_ADV #(
     .BANDWIDTH("OPTIMIZED"),
     .CLKFBOUT_MULT(9),
@@ -88,7 +99,7 @@ module clk_wiz_0_clk_wiz
     .CLKOUT0_DIVIDE(9),
     .CLKOUT0_DUTY_CYCLE(0.500000),
     .CLKOUT0_PHASE(0.000000),
-    .CLKOUT1_DIVIDE(1),
+    .CLKOUT1_DIVIDE(61),
     .CLKOUT1_DUTY_CYCLE(0.500000),
     .CLKOUT1_PHASE(0.000000),
     .CLKOUT2_DIVIDE(1),
@@ -118,7 +129,7 @@ module clk_wiz_0_clk_wiz
         .CLKIN2(1'b0),
         .CLKINSEL(1'b1),
         .CLKOUT0(clk100_clk_wiz_0),
-        .CLKOUT1(NLW_plle2_adv_inst_CLKOUT1_UNCONNECTED),
+        .CLKOUT1(clk_uart_clk_wiz_0),
         .CLKOUT2(NLW_plle2_adv_inst_CLKOUT2_UNCONNECTED),
         .CLKOUT3(NLW_plle2_adv_inst_CLKOUT3_UNCONNECTED),
         .CLKOUT4(NLW_plle2_adv_inst_CLKOUT4_UNCONNECTED),

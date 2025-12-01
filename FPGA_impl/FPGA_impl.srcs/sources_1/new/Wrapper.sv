@@ -28,46 +28,49 @@ module Wrapper(
     output UART_RXD_OUT,
     output reg [15:0] LED
 );
-    localparam BIT_WIDTH = 4;
-	localparam SIZE = 2;
+    localparam BIT_WIDTH = 16;
+	localparam SIZE = 8;
 
     wire sys_reset = ~reset;
 
-    ila_0 debug_ila (
-        .clk(clk_100mhz),
-        .probe0(got_magic),
-        .probe1(frame_ready),
-        .probe2({acts_sram[1], acts_sram[0]}),
-        .probe3({weights_sram[0][0], weights_sram[0][1], weights_sram[1][0], weights_sram[1][1]})
-    );
+    // ila_0 debug_ila (
+    //     .clk(clk_100mhz),
+    //     .probe0(got_magic),
+    //     .probe1(frame_ready),
+    //     .probe2({acts_sram[1], acts_sram[0]}),
+    //     .probe3({weights_sram[0][0], weights_sram[0][1], weights_sram[1][0], weights_sram[1][1]})
+    // );
 
 
     wire locked;
     wire clk100;
+    wire clk_uart;
     clk_wiz_0 pll(
         .clk100(clk100),
+        .clk_uart(clk_uart),
         .reset(sys_reset),
         .locked(locked),
         .clk_in1(clk_100mhz)
 	); 
     /* Clock UART should be 16 times the baudrate
     * To allow accurate sampling
+    * generate with pll at high baudrate
     */
         
-    reg clk_uart;
-    reg [31:0] clk_uart_counter;
-    always @(posedge clk100) begin
-        if (sys_reset) begin
-            clk_uart_counter <= 0;
-            clk_uart <= 0;
-        end else begin
-            clk_uart_counter <= clk_uart_counter + 1;
-            if (clk_uart_counter == 325) begin
-                clk_uart <= ~clk_uart;
-                clk_uart_counter <= 0;
-            end
-        end
-    end
+    // reg clk_uart;
+    // reg [31:0] clk_uart_counter;
+    // always @(posedge clk450) begin
+    //     if (sys_reset) begin
+    //         clk_uart_counter <= 0;
+    //         clk_uart <= 0;
+    //     end else begin
+    //         clk_uart_counter <= clk_uart_counter + 1;
+    //         if (clk_uart_counter == 15) begin
+    //             clk_uart <= ~clk_uart;
+    //             clk_uart_counter <= 0;
+    //         end
+    //     end
+    // end
 
     /* Operating modes:
      * - Idle
@@ -297,8 +300,10 @@ module Wrapper(
                     uart_data_frame[30]    <= 0;                    // acts/sram flag does not matter as only results.
                     uart_data_frame[29:23] <= 0;                    // vector, x-index = 0
                     uart_data_frame[22:16] <= result_index;         // y-index
-                    uart_data_frame[15:BIT_WIDTH]  <= 0;            // left-pad data with 0
-                    uart_data_frame[BIT_WIDTH-1:0] <= result[result_index]; // data
+                    if (BIT_WIDTH < 16) begin
+                        uart_data_frame[15:BIT_WIDTH]  <= 0;            // left-pad data with 0
+                    end
+                        uart_data_frame[BIT_WIDTH-1:0] <= result[result_index]; // data
                     // uart_data_frame <= 32'h00DA221D;
                 end
                 uart_send_signal <= 1;

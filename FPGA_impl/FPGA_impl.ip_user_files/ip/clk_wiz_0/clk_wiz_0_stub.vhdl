@@ -1,7 +1,7 @@
 -- Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2021.1 (win64) Build 3247384 Thu Jun 10 19:36:33 MDT 2021
--- Date        : Sat Nov 29 16:55:10 2025
+-- Date        : Mon Dec  1 02:12:29 2025
 -- Host        : P2-07 running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
 --               c:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_stub.vhdl
@@ -15,6 +15,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity clk_wiz_0 is
   Port ( 
     clk100 : out STD_LOGIC;
+    clk_uart : out STD_LOGIC;
     reset : in STD_LOGIC;
     locked : out STD_LOGIC;
     clk_in1 : in STD_LOGIC
@@ -26,6 +27,6 @@ architecture stub of clk_wiz_0 is
 attribute syn_black_box : boolean;
 attribute black_box_pad_pin : string;
 attribute syn_black_box of stub : architecture is true;
-attribute black_box_pad_pin of stub : architecture is "clk100,reset,locked,clk_in1";
+attribute black_box_pad_pin of stub : architecture is "clk100,clk_uart,reset,locked,clk_in1";
 begin
 end;

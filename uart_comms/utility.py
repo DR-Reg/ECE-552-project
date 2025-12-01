@@ -118,6 +118,7 @@ class SerialPort:
             msg = b'\xde\xad\xbe\xef'
             self.ser.write(msg[::-1])   # little end
             print("Sent", msg.hex())
+            time.sleep(0.01)            # a bit of pause so no bottleneck send path
             if self.ser.in_waiting >= 4:
                 word = self.ser.read(4)
                 if word.hex() == '0c0c0c0c':
@@ -129,28 +130,35 @@ class SerialPort:
         print("Beginning to send data payload")
         sending_weights = 0
         x_ix = y_ix = 0
+        num_times = 0
+        stop_sending_df = False
         # TODO: matrixify the acts!
         while True:
-            data = weights[y_ix][x_ix] if sending_weights else acts[y_ix]
-            data_frame = self.build_dataframe(0,sending_weights,x_ix,y_ix,data)
-            self.ser.write(data_frame)
-            nd = int.from_bytes(data_frame, 'little', signed=False)
-            dx_ix = self.get_bit_slice(nd, 29, 23) 
-            dy_ix = self.get_bit_slice(nd, 22, 16) 
-            dsending_weights = self.get_bit(nd, 30)
-            ddata = self.get_bit_slice(nd, 3, 0)
-            print(f"Sent data frame (x={dx_ix}, y={dy_ix}, a/w={dsending_weights}, data={ddata}) :", data_frame.hex())
+            if not stop_sending_df:
+                data = weights[y_ix][x_ix] if sending_weights else acts[y_ix]
+                data_frame = self.build_dataframe(0,sending_weights,x_ix,y_ix,data)
+                self.ser.write(data_frame)
+                time.sleep(0.01)
+                nd = int.from_bytes(data_frame, 'little', signed=False)
+                dx_ix = self.get_bit_slice(nd, 29, 23) 
+                dy_ix = self.get_bit_slice(nd, 22, 16) 
+                dsending_weights = self.get_bit(nd, 30)
+                ddata = self.get_bit_slice(nd, 3, 0)
+                print(f"Sent data frame (run={num_times}, x={dx_ix}, y={dy_ix}, a/w={dsending_weights}, data={ddata}) :", data_frame.hex())
 
-            # update the indeces appropriately
-            x_ix += 1
-            if x_ix == SIZE or (x_ix == 1 and sending_weights == 0):
-                y_ix += 1
-                x_ix = 0
-                if y_ix == SIZE:
-                    sending_weights += 1
-                    y_ix = 0
-                    if sending_weights == 2:
-                        sending_weights = 0
+                # update the indeces appropriately
+                x_ix += 1
+                if x_ix == SIZE or (x_ix == 1 and sending_weights == 0):
+                    y_ix += 1
+                    x_ix = 0
+                    if y_ix == SIZE:
+                        sending_weights += 1
+                        y_ix = 0
+                        if sending_weights == 2:
+                            sending_weights = 0
+                            num_times += 1
+                            if num_times == 2:
+                                stop_sending_df = True
 
             # Check for 2nd acknowledgement, stop sending
             if self.ser.in_waiting >= 4:

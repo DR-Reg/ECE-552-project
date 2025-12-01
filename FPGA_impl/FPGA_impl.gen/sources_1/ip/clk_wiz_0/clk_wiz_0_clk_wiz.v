@@ -57,6 +57,7 @@
 //   Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
 //----------------------------------------------------------------------------
 // __clk100__100.00000______0.000______50.0______137.681____105.461
+// clk_uart__14.75410______0.000______50.0______203.429____105.461
 //
 //----------------------------------------------------------------------------
 // Input Clock   Freq (MHz)    Input Jitter (UI)
@@ -70,6 +71,7 @@ module clk_wiz_0_clk_wiz
  (// Clock in ports
   // Clock out ports
   output        clk100,
+  output        clk_uart,
   // Status and control signals
   input         reset,
   output        locked,
@@ -94,7 +96,7 @@ wire clk_in2_clk_wiz_0;
   //    * Unused outputs are labeled unused
 
   wire        clk100_clk_wiz_0;
-  wire        clk_out2_clk_wiz_0;
+  wire        clk_uart_clk_wiz_0;
   wire        clk_out3_clk_wiz_0;
   wire        clk_out4_clk_wiz_0;
   wire        clk_out5_clk_wiz_0;
@@ -108,7 +110,6 @@ wire clk_in2_clk_wiz_0;
   wire        clkfbout_clk_wiz_0;
   wire        clkfbout_buf_clk_wiz_0;
   wire        clkfboutb_unused;
-   wire clkout1_unused;
    wire clkout2_unused;
    wire clkout3_unused;
    wire clkout4_unused;
@@ -128,13 +129,16 @@ wire clk_in2_clk_wiz_0;
     .CLKOUT0_DIVIDE       (9),
     .CLKOUT0_PHASE        (0.000),
     .CLKOUT0_DUTY_CYCLE   (0.500),
+    .CLKOUT1_DIVIDE       (61),
+    .CLKOUT1_PHASE        (0.000),
+    .CLKOUT1_DUTY_CYCLE   (0.500),
     .CLKIN1_PERIOD        (10.000))
   plle2_adv_inst
     // Output clocks
    (
     .CLKFBOUT            (clkfbout_clk_wiz_0),
     .CLKOUT0             (clk100_clk_wiz_0),
-    .CLKOUT1             (clkout1_unused),
+    .CLKOUT1             (clk_uart_clk_wiz_0),
     .CLKOUT2             (clkout2_unused),
     .CLKOUT3             (clkout3_unused),
     .CLKOUT4             (clkout4_unused),
@@ -178,6 +182,10 @@ wire clk_in2_clk_wiz_0;
    (.O   (clk100),
     .I   (clk100_clk_wiz_0));
 
+
+  BUFG clkout2_buf
+   (.O   (clk_uart),
+    .I   (clk_uart_clk_wiz_0));
 
 
 

@@ -2,8 +2,8 @@
 # Vivado v2021.1 (64-bit)
 # SW Build 3247384 on Thu Jun 10 19:36:33 MDT 2021
 # IP Build 3246043 on Fri Jun 11 00:30:35 MDT 2021
-# Start of session at: Sun Nov 30 22:49:55 2025
-# Process ID: 25564
+# Start of session at: Mon Dec  1 02:12:56 2025
+# Process ID: 22244
 # Current directory: C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.runs/synth_1
 # Command line: vivado.exe -log Wrapper.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source Wrapper.tcl
 # Log file: C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.runs/synth_1/Wrapper.vds
@@ -17,113 +17,160 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100
 INFO: [Device 21-403] Loading part xc7a100tcsg324-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 19504
-WARNING: [Synth 8-992] got_magic is already implicitly declared earlier [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:184]
-WARNING: [Synth 8-992] frame_ready is already implicitly declared earlier [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:323]
-WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:206]
-WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:213]
-WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:224]
-WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:226]
-WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:252]
-WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:257]
-WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:261]
+INFO: [Synth 8-7075] Helper process launched with PID 26064
+WARNING: [Synth 8-6901] identifier 'frame_ready' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:208]
+WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:209]
+WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:216]
+WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:227]
+WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:229]
+WARNING: [Synth 8-6901] identifier 'frame_ready' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:250]
+WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:255]
+WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:260]
 WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:264]
-WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:264]
-WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:264]
-WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:266]
-WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:266]
+WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:267]
+WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:267]
+WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:267]
 WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:269]
 WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:269]
-WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:271]
-WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:288]
+WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:272]
+WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:272]
+WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:274]
+WARNING: [Synth 8-6901] identifier 'frame_ready' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:291]
+WARNING: [Synth 8-6901] identifier 'rx_data_frame' is used before its declaration [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:291]
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 1329.199 ; gain = 0.000
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1329.348 ; gain = 0.000
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'Wrapper' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:23]
-WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:36]
-INFO: [Synth 8-6157] synthesizing module 'ila_0' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.runs/synth_1/.Xil/Vivado-25564-P2-07/realtime/ila_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'ila_0' (1#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.runs/synth_1/.Xil/Vivado-25564-P2-07/realtime/ila_0_stub.v:6]
-INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.runs/synth_1/.Xil/Vivado-25564-P2-07/realtime/clk_wiz_0_stub.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (2#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.runs/synth_1/.Xil/Vivado-25564-P2-07/realtime/clk_wiz_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.runs/synth_1/.Xil/Vivado-22244-P2-07/realtime/clk_wiz_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (1#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.runs/synth_1/.Xil/Vivado-22244-P2-07/realtime/clk_wiz_0_stub.v:5]
 INFO: [Synth 8-6157] synthesizing module 'VpuHsa' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:39]
-	Parameter SIZE bound to: 2 - type: integer 
-	Parameter BIT_WIDTH bound to: 4 - type: integer 
+	Parameter SIZE bound to: 8 - type: integer 
+	Parameter BIT_WIDTH bound to: 16 - type: integer 
 INFO: [Synth 8-6157] synthesizing module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/WsMac.sv:25]
-	Parameter BIT_WIDTH bound to: 4 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'WsMac' (3#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/WsMac.sv:25]
-WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (4) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
-WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (4) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+	Parameter BIT_WIDTH bound to: 16 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'WsMac' (2#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/WsMac.sv:25]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
+WARNING: [Synth 8-689] width (32) of port connection 'cin' does not match port width (16) of module 'WsMac' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:71]
 INFO: [Synth 8-6157] synthesizing module 'DeMux' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/DeMux.sv:23]
-	Parameter BIT_WIDTH bound to: 4 - type: integer 
-	Parameter SIZE bound to: 2 - type: integer 
-INFO: [Synth 8-6155] done synthesizing module 'DeMux' (4#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/DeMux.sv:23]
-INFO: [Synth 8-6155] done synthesizing module 'VpuHsa' (5#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:39]
+	Parameter BIT_WIDTH bound to: 16 - type: integer 
+	Parameter SIZE bound to: 8 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'DeMux' (3#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/DeMux.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'VpuHsa' (4#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/VpuHsa.sv:39]
 INFO: [Synth 8-6157] synthesizing module 'SerialTransmitter' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/SerialTransmitter.sv:23]
 	Parameter FRAME_WIDTH bound to: 32 - type: integer 
 INFO: [Synth 8-6157] synthesizing module 'SerialByteTransmitter' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/SerialByteTransmitter.sv:23]
-INFO: [Synth 8-6155] done synthesizing module 'SerialByteTransmitter' (6#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/SerialByteTransmitter.sv:23]
-INFO: [Synth 8-6155] done synthesizing module 'SerialTransmitter' (7#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/SerialTransmitter.sv:23]
-WARNING: [Synth 8-7071] port 'ready' of module 'SerialTransmitter' is unconnected for instance 'UART_TRANSMITTER' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:315]
-WARNING: [Synth 8-7023] instance 'UART_TRANSMITTER' of module 'SerialTransmitter' has 5 connections declared, but only 4 given [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:315]
+INFO: [Synth 8-6155] done synthesizing module 'SerialByteTransmitter' (5#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/SerialByteTransmitter.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'SerialTransmitter' (6#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/SerialTransmitter.sv:23]
+WARNING: [Synth 8-7071] port 'ready' of module 'SerialTransmitter' is unconnected for instance 'UART_TRANSMITTER' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:320]
+WARNING: [Synth 8-7023] instance 'UART_TRANSMITTER' of module 'SerialTransmitter' has 5 connections declared, but only 4 given [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:320]
 INFO: [Synth 8-6157] synthesizing module 'SerialReceiver' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/SerialReceiver.sv:23]
 	Parameter FRAME_WIDTH bound to: 32 - type: integer 
 INFO: [Synth 8-6157] synthesizing module 'SerialByteReceiver' [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/SerialByteReceiver.sv:23]
-INFO: [Synth 8-6155] done synthesizing module 'SerialByteReceiver' (8#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/SerialByteReceiver.sv:23]
-INFO: [Synth 8-6155] done synthesizing module 'SerialReceiver' (9#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/SerialReceiver.sv:23]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'debug_ila'. This will prevent further optimization [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:36]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'UART_RECEIVER'. This will prevent further optimization [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:325]
-INFO: [Synth 8-6155] done synthesizing module 'Wrapper' (10#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'SerialByteReceiver' (7#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/SerialByteReceiver.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'SerialReceiver' (8#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/SerialReceiver.sv:23]
+INFO: [Synth 8-6155] done synthesizing module 'Wrapper' (9#1) [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/sources_1/new/Wrapper.sv:23]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 1329.199 ; gain = 0.000
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1329.348 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1329.199 ; gain = 0.000
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1329.348 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1329.199 ; gain = 0.000
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1329.348 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1329.199 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.042 . Memory (MB): peak = 1329.348 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
 Parsing XDC File [c:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'pll'
 Finished Parsing XDC File [c:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'pll'
-Parsing XDC File [c:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.gen/sources_1/ip/ila_0/ila_0/ila_0_in_context.xdc] for cell 'debug_ila'
-Finished Parsing XDC File [c:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.gen/sources_1/ip/ila_0/ila_0/ila_0_in_context.xdc] for cell 'debug_ila'
 Parsing XDC File [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/constrs_1/new/master.xdc]
 Finished Parsing XDC File [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/constrs_1/new/master.xdc]
 INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.srcs/constrs_1/new/master.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/Wrapper_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/Wrapper_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1426.742 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1415.398 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1426.742 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.018 . Memory (MB): peak = 1415.398 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished Constraint Validation : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1415.398 ; gain = 86.051
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1415.398 ; gain = 86.051
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
-Applied set_property IO_BUFFER_TYPE = NONE for clk_100mhz. (constraint file  c:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 3).
-Applied set_property CLOCK_BUFFER_TYPE = NONE for clk_100mhz. (constraint file  c:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 4).
+Applied set_property IO_BUFFER_TYPE = NONE for clk_100mhz. (constraint file  c:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 4).
+Applied set_property CLOCK_BUFFER_TYPE = NONE for clk_100mhz. (constraint file  c:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 5).
 Applied set_property KEEP_HIERARCHY = SOFT for pll. (constraint file  auto generated constraint).
-Applied set_property KEEP_HIERARCHY = SOFT for debug_ila. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1415.398 ; gain = 86.051
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'operating_mode_reg' in module 'Wrapper'
 ---------------------------------------------------------------------------------------------------
@@ -137,46 +184,50 @@ INFO: [Synth 8-802] inferred FSM for state register 'operating_mode_reg' in modu
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'operating_mode_reg' using encoding 'sequential' in module 'Wrapper'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 1415.398 ; gain = 86.051
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input   32 Bit       Adders := 2     
+	   2 Input   32 Bit       Adders := 1     
 	   2 Input    7 Bit       Adders := 1     
 	   2 Input    4 Bit       Adders := 5     
-	   2 Input    3 Bit       Adders := 1     
-	   2 Input    1 Bit       Adders := 1     
+	   2 Input    3 Bit       Adders := 2     
 +---XORs : 
 	                8 Bit    Wide XORs := 2     
 +---Registers : 
-	               32 Bit    Registers := 4     
-	               16 Bit    Registers := 1     
+	               64 Bit    Registers := 1     
+	               32 Bit    Registers := 3     
+	               16 Bit    Registers := 202   
 	               11 Bit    Registers := 1     
-	                8 Bit    Registers := 2     
+	                8 Bit    Registers := 3     
 	                7 Bit    Registers := 1     
-	                4 Bit    Registers := 23    
-	                3 Bit    Registers := 1     
-	                2 Bit    Registers := 2     
-	                1 Bit    Registers := 20    
+	                4 Bit    Registers := 5     
+	                3 Bit    Registers := 2     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 18    
++---RAMs : 
+	              128 Bit	(8 X 16 bit)          RAMs := 1     
 +---Muxes : 
-	   2 Input   32 Bit        Muxes := 9     
-	   2 Input   16 Bit        Muxes := 1     
-	   4 Input    8 Bit        Muxes := 2     
-	   2 Input    8 Bit        Muxes := 3     
-	   2 Input    7 Bit        Muxes := 1     
-	   2 Input    4 Bit        Muxes := 57    
-	   4 Input    4 Bit        Muxes := 9     
+	   2 Input   64 Bit        Muxes := 4     
+	   4 Input   64 Bit        Muxes := 1     
+	   2 Input   32 Bit        Muxes := 8     
+	   2 Input   16 Bit        Muxes := 9     
+	   4 Input    8 Bit        Muxes := 3     
+	   2 Input    8 Bit        Muxes := 7     
+	   2 Input    4 Bit        Muxes := 7     
+	   4 Input    4 Bit        Muxes := 2     
+	   2 Input    3 Bit        Muxes := 1     
 	  32 Input    2 Bit        Muxes := 1     
-	   2 Input    2 Bit        Muxes := 8     
+	   2 Input    2 Bit        Muxes := 4     
 	   5 Input    2 Bit        Muxes := 1     
-	   4 Input    2 Bit        Muxes := 2     
+	   4 Input    2 Bit        Muxes := 1     
 	   3 Input    2 Bit        Muxes := 1     
-	   2 Input    1 Bit        Muxes := 39    
-	   3 Input    1 Bit        Muxes := 4     
-	   4 Input    1 Bit        Muxes := 6     
+	   2 Input    1 Bit        Muxes := 107   
+	   3 Input    1 Bit        Muxes := 3     
+	   4 Input    1 Bit        Muxes := 72    
 	   5 Input    1 Bit        Muxes := 4     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
@@ -193,26 +244,383 @@ Finished Part Resource Summary
 ---------------------------------------------------------------------------------
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
+DSP Report: Generating DSP row[7].col[0].left_latches_reg[7][0], operation Mode is: (A*B)'.
+DSP Report: register row[7].col[0].left_latches_reg[7][0] is absorbed into DSP row[7].col[0].left_latches_reg[7][0].
+DSP Report: operator row[7].col[0].mac/cout is absorbed into DSP row[7].col[0].left_latches_reg[7][0].
+DSP Report: operator row[7].col[0].mac/cout0 is absorbed into DSP row[7].col[0].left_latches_reg[7][0].
+DSP Report: Generating DSP row[7].col[1].left_latches_reg[7][1], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[7].col[1].left_latches_reg[7][1] is absorbed into DSP row[7].col[1].left_latches_reg[7][1].
+DSP Report: operator row[7].col[1].mac/cout is absorbed into DSP row[7].col[1].left_latches_reg[7][1].
+DSP Report: operator row[7].col[1].mac/cout0 is absorbed into DSP row[7].col[1].left_latches_reg[7][1].
+DSP Report: Generating DSP row[7].col[2].left_latches_reg[7][2], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[7].col[2].left_latches_reg[7][2] is absorbed into DSP row[7].col[2].left_latches_reg[7][2].
+DSP Report: operator row[7].col[2].mac/cout is absorbed into DSP row[7].col[2].left_latches_reg[7][2].
+DSP Report: operator row[7].col[2].mac/cout0 is absorbed into DSP row[7].col[2].left_latches_reg[7][2].
+DSP Report: Generating DSP row[7].col[3].left_latches_reg[7][3], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[7].col[3].left_latches_reg[7][3] is absorbed into DSP row[7].col[3].left_latches_reg[7][3].
+DSP Report: operator row[7].col[3].mac/cout is absorbed into DSP row[7].col[3].left_latches_reg[7][3].
+DSP Report: operator row[7].col[3].mac/cout0 is absorbed into DSP row[7].col[3].left_latches_reg[7][3].
+DSP Report: Generating DSP row[7].col[4].left_latches_reg[7][4], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[7].col[4].left_latches_reg[7][4] is absorbed into DSP row[7].col[4].left_latches_reg[7][4].
+DSP Report: operator row[7].col[4].mac/cout is absorbed into DSP row[7].col[4].left_latches_reg[7][4].
+DSP Report: operator row[7].col[4].mac/cout0 is absorbed into DSP row[7].col[4].left_latches_reg[7][4].
+DSP Report: Generating DSP row[7].col[5].left_latches_reg[7][5], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[7].col[5].left_latches_reg[7][5] is absorbed into DSP row[7].col[5].left_latches_reg[7][5].
+DSP Report: operator row[7].col[5].mac/cout is absorbed into DSP row[7].col[5].left_latches_reg[7][5].
+DSP Report: operator row[7].col[5].mac/cout0 is absorbed into DSP row[7].col[5].left_latches_reg[7][5].
+DSP Report: Generating DSP row[7].col[6].left_latches_reg[7][6], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[7].col[6].left_latches_reg[7][6] is absorbed into DSP row[7].col[6].left_latches_reg[7][6].
+DSP Report: operator row[7].col[6].mac/cout is absorbed into DSP row[7].col[6].left_latches_reg[7][6].
+DSP Report: operator row[7].col[6].mac/cout0 is absorbed into DSP row[7].col[6].left_latches_reg[7][6].
+DSP Report: Generating DSP row[7].col[7].left_latches_reg[7][7], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[7].col[7].left_latches_reg[7][7] is absorbed into DSP row[7].col[7].left_latches_reg[7][7].
+DSP Report: operator row[7].col[7].mac/cout is absorbed into DSP row[7].col[7].left_latches_reg[7][7].
+DSP Report: operator row[7].col[7].mac/cout0 is absorbed into DSP row[7].col[7].left_latches_reg[7][7].
+DSP Report: Generating DSP row[6].col[0].left_latches_reg[6][0], operation Mode is: (A*B)'.
+DSP Report: register row[6].col[0].left_latches_reg[6][0] is absorbed into DSP row[6].col[0].left_latches_reg[6][0].
+DSP Report: operator row[6].col[0].mac/cout is absorbed into DSP row[6].col[0].left_latches_reg[6][0].
+DSP Report: operator row[6].col[0].mac/cout0 is absorbed into DSP row[6].col[0].left_latches_reg[6][0].
+DSP Report: Generating DSP row[6].col[1].left_latches_reg[6][1], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[6].col[1].left_latches_reg[6][1] is absorbed into DSP row[6].col[1].left_latches_reg[6][1].
+DSP Report: operator row[6].col[1].mac/cout is absorbed into DSP row[6].col[1].left_latches_reg[6][1].
+DSP Report: operator row[6].col[1].mac/cout0 is absorbed into DSP row[6].col[1].left_latches_reg[6][1].
+DSP Report: Generating DSP row[6].col[2].left_latches_reg[6][2], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[6].col[2].left_latches_reg[6][2] is absorbed into DSP row[6].col[2].left_latches_reg[6][2].
+DSP Report: operator row[6].col[2].mac/cout is absorbed into DSP row[6].col[2].left_latches_reg[6][2].
+DSP Report: operator row[6].col[2].mac/cout0 is absorbed into DSP row[6].col[2].left_latches_reg[6][2].
+DSP Report: Generating DSP row[6].col[3].left_latches_reg[6][3], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[6].col[3].left_latches_reg[6][3] is absorbed into DSP row[6].col[3].left_latches_reg[6][3].
+DSP Report: operator row[6].col[3].mac/cout is absorbed into DSP row[6].col[3].left_latches_reg[6][3].
+DSP Report: operator row[6].col[3].mac/cout0 is absorbed into DSP row[6].col[3].left_latches_reg[6][3].
+DSP Report: Generating DSP row[6].col[4].left_latches_reg[6][4], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[6].col[4].left_latches_reg[6][4] is absorbed into DSP row[6].col[4].left_latches_reg[6][4].
+DSP Report: operator row[6].col[4].mac/cout is absorbed into DSP row[6].col[4].left_latches_reg[6][4].
+DSP Report: operator row[6].col[4].mac/cout0 is absorbed into DSP row[6].col[4].left_latches_reg[6][4].
+DSP Report: Generating DSP row[6].col[5].left_latches_reg[6][5], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[6].col[5].left_latches_reg[6][5] is absorbed into DSP row[6].col[5].left_latches_reg[6][5].
+DSP Report: operator row[6].col[5].mac/cout is absorbed into DSP row[6].col[5].left_latches_reg[6][5].
+DSP Report: operator row[6].col[5].mac/cout0 is absorbed into DSP row[6].col[5].left_latches_reg[6][5].
+DSP Report: Generating DSP row[6].col[6].left_latches_reg[6][6], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[6].col[6].left_latches_reg[6][6] is absorbed into DSP row[6].col[6].left_latches_reg[6][6].
+DSP Report: operator row[6].col[6].mac/cout is absorbed into DSP row[6].col[6].left_latches_reg[6][6].
+DSP Report: operator row[6].col[6].mac/cout0 is absorbed into DSP row[6].col[6].left_latches_reg[6][6].
+DSP Report: Generating DSP row[6].col[7].left_latches_reg[6][7], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[6].col[7].left_latches_reg[6][7] is absorbed into DSP row[6].col[7].left_latches_reg[6][7].
+DSP Report: operator row[6].col[7].mac/cout is absorbed into DSP row[6].col[7].left_latches_reg[6][7].
+DSP Report: operator row[6].col[7].mac/cout0 is absorbed into DSP row[6].col[7].left_latches_reg[6][7].
+DSP Report: Generating DSP row[5].col[0].left_latches_reg[5][0], operation Mode is: (A*B)'.
+DSP Report: register row[5].col[0].left_latches_reg[5][0] is absorbed into DSP row[5].col[0].left_latches_reg[5][0].
+DSP Report: operator row[5].col[0].mac/cout is absorbed into DSP row[5].col[0].left_latches_reg[5][0].
+DSP Report: operator row[5].col[0].mac/cout0 is absorbed into DSP row[5].col[0].left_latches_reg[5][0].
+DSP Report: Generating DSP row[5].col[1].left_latches_reg[5][1], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[5].col[1].left_latches_reg[5][1] is absorbed into DSP row[5].col[1].left_latches_reg[5][1].
+DSP Report: operator row[5].col[1].mac/cout is absorbed into DSP row[5].col[1].left_latches_reg[5][1].
+DSP Report: operator row[5].col[1].mac/cout0 is absorbed into DSP row[5].col[1].left_latches_reg[5][1].
+DSP Report: Generating DSP row[5].col[2].left_latches_reg[5][2], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[5].col[2].left_latches_reg[5][2] is absorbed into DSP row[5].col[2].left_latches_reg[5][2].
+DSP Report: operator row[5].col[2].mac/cout is absorbed into DSP row[5].col[2].left_latches_reg[5][2].
+DSP Report: operator row[5].col[2].mac/cout0 is absorbed into DSP row[5].col[2].left_latches_reg[5][2].
+DSP Report: Generating DSP row[5].col[3].left_latches_reg[5][3], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[5].col[3].left_latches_reg[5][3] is absorbed into DSP row[5].col[3].left_latches_reg[5][3].
+DSP Report: operator row[5].col[3].mac/cout is absorbed into DSP row[5].col[3].left_latches_reg[5][3].
+DSP Report: operator row[5].col[3].mac/cout0 is absorbed into DSP row[5].col[3].left_latches_reg[5][3].
+DSP Report: Generating DSP row[5].col[4].left_latches_reg[5][4], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[5].col[4].left_latches_reg[5][4] is absorbed into DSP row[5].col[4].left_latches_reg[5][4].
+DSP Report: operator row[5].col[4].mac/cout is absorbed into DSP row[5].col[4].left_latches_reg[5][4].
+DSP Report: operator row[5].col[4].mac/cout0 is absorbed into DSP row[5].col[4].left_latches_reg[5][4].
+DSP Report: Generating DSP row[5].col[5].left_latches_reg[5][5], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[5].col[5].left_latches_reg[5][5] is absorbed into DSP row[5].col[5].left_latches_reg[5][5].
+DSP Report: operator row[5].col[5].mac/cout is absorbed into DSP row[5].col[5].left_latches_reg[5][5].
+DSP Report: operator row[5].col[5].mac/cout0 is absorbed into DSP row[5].col[5].left_latches_reg[5][5].
+DSP Report: Generating DSP row[5].col[6].left_latches_reg[5][6], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[5].col[6].left_latches_reg[5][6] is absorbed into DSP row[5].col[6].left_latches_reg[5][6].
+DSP Report: operator row[5].col[6].mac/cout is absorbed into DSP row[5].col[6].left_latches_reg[5][6].
+DSP Report: operator row[5].col[6].mac/cout0 is absorbed into DSP row[5].col[6].left_latches_reg[5][6].
+DSP Report: Generating DSP row[5].col[7].left_latches_reg[5][7], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[5].col[7].left_latches_reg[5][7] is absorbed into DSP row[5].col[7].left_latches_reg[5][7].
+DSP Report: operator row[5].col[7].mac/cout is absorbed into DSP row[5].col[7].left_latches_reg[5][7].
+DSP Report: operator row[5].col[7].mac/cout0 is absorbed into DSP row[5].col[7].left_latches_reg[5][7].
+DSP Report: Generating DSP row[4].col[0].left_latches_reg[4][0], operation Mode is: (A*B)'.
+DSP Report: register row[4].col[0].left_latches_reg[4][0] is absorbed into DSP row[4].col[0].left_latches_reg[4][0].
+DSP Report: operator row[4].col[0].mac/cout is absorbed into DSP row[4].col[0].left_latches_reg[4][0].
+DSP Report: operator row[4].col[0].mac/cout0 is absorbed into DSP row[4].col[0].left_latches_reg[4][0].
+DSP Report: Generating DSP row[4].col[1].left_latches_reg[4][1], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[4].col[1].left_latches_reg[4][1] is absorbed into DSP row[4].col[1].left_latches_reg[4][1].
+DSP Report: operator row[4].col[1].mac/cout is absorbed into DSP row[4].col[1].left_latches_reg[4][1].
+DSP Report: operator row[4].col[1].mac/cout0 is absorbed into DSP row[4].col[1].left_latches_reg[4][1].
+DSP Report: Generating DSP row[4].col[2].left_latches_reg[4][2], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[4].col[2].left_latches_reg[4][2] is absorbed into DSP row[4].col[2].left_latches_reg[4][2].
+DSP Report: operator row[4].col[2].mac/cout is absorbed into DSP row[4].col[2].left_latches_reg[4][2].
+DSP Report: operator row[4].col[2].mac/cout0 is absorbed into DSP row[4].col[2].left_latches_reg[4][2].
+DSP Report: Generating DSP row[4].col[3].left_latches_reg[4][3], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[4].col[3].left_latches_reg[4][3] is absorbed into DSP row[4].col[3].left_latches_reg[4][3].
+DSP Report: operator row[4].col[3].mac/cout is absorbed into DSP row[4].col[3].left_latches_reg[4][3].
+DSP Report: operator row[4].col[3].mac/cout0 is absorbed into DSP row[4].col[3].left_latches_reg[4][3].
+DSP Report: Generating DSP row[4].col[4].left_latches_reg[4][4], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[4].col[4].left_latches_reg[4][4] is absorbed into DSP row[4].col[4].left_latches_reg[4][4].
+DSP Report: operator row[4].col[4].mac/cout is absorbed into DSP row[4].col[4].left_latches_reg[4][4].
+DSP Report: operator row[4].col[4].mac/cout0 is absorbed into DSP row[4].col[4].left_latches_reg[4][4].
+DSP Report: Generating DSP row[4].col[5].left_latches_reg[4][5], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[4].col[5].left_latches_reg[4][5] is absorbed into DSP row[4].col[5].left_latches_reg[4][5].
+DSP Report: operator row[4].col[5].mac/cout is absorbed into DSP row[4].col[5].left_latches_reg[4][5].
+DSP Report: operator row[4].col[5].mac/cout0 is absorbed into DSP row[4].col[5].left_latches_reg[4][5].
+DSP Report: Generating DSP row[4].col[6].left_latches_reg[4][6], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[4].col[6].left_latches_reg[4][6] is absorbed into DSP row[4].col[6].left_latches_reg[4][6].
+DSP Report: operator row[4].col[6].mac/cout is absorbed into DSP row[4].col[6].left_latches_reg[4][6].
+DSP Report: operator row[4].col[6].mac/cout0 is absorbed into DSP row[4].col[6].left_latches_reg[4][6].
+DSP Report: Generating DSP row[4].col[7].left_latches_reg[4][7], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[4].col[7].left_latches_reg[4][7] is absorbed into DSP row[4].col[7].left_latches_reg[4][7].
+DSP Report: operator row[4].col[7].mac/cout is absorbed into DSP row[4].col[7].left_latches_reg[4][7].
+DSP Report: operator row[4].col[7].mac/cout0 is absorbed into DSP row[4].col[7].left_latches_reg[4][7].
+DSP Report: Generating DSP row[3].col[0].left_latches_reg[3][0], operation Mode is: (A*B)'.
+DSP Report: register row[3].col[0].left_latches_reg[3][0] is absorbed into DSP row[3].col[0].left_latches_reg[3][0].
+DSP Report: operator row[3].col[0].mac/cout is absorbed into DSP row[3].col[0].left_latches_reg[3][0].
+DSP Report: operator row[3].col[0].mac/cout0 is absorbed into DSP row[3].col[0].left_latches_reg[3][0].
+DSP Report: Generating DSP row[3].col[1].left_latches_reg[3][1], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[3].col[1].left_latches_reg[3][1] is absorbed into DSP row[3].col[1].left_latches_reg[3][1].
+DSP Report: operator row[3].col[1].mac/cout is absorbed into DSP row[3].col[1].left_latches_reg[3][1].
+DSP Report: operator row[3].col[1].mac/cout0 is absorbed into DSP row[3].col[1].left_latches_reg[3][1].
+DSP Report: Generating DSP row[3].col[2].left_latches_reg[3][2], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[3].col[2].left_latches_reg[3][2] is absorbed into DSP row[3].col[2].left_latches_reg[3][2].
+DSP Report: operator row[3].col[2].mac/cout is absorbed into DSP row[3].col[2].left_latches_reg[3][2].
+DSP Report: operator row[3].col[2].mac/cout0 is absorbed into DSP row[3].col[2].left_latches_reg[3][2].
+DSP Report: Generating DSP row[3].col[3].left_latches_reg[3][3], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[3].col[3].left_latches_reg[3][3] is absorbed into DSP row[3].col[3].left_latches_reg[3][3].
+DSP Report: operator row[3].col[3].mac/cout is absorbed into DSP row[3].col[3].left_latches_reg[3][3].
+DSP Report: operator row[3].col[3].mac/cout0 is absorbed into DSP row[3].col[3].left_latches_reg[3][3].
+DSP Report: Generating DSP row[3].col[4].left_latches_reg[3][4], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[3].col[4].left_latches_reg[3][4] is absorbed into DSP row[3].col[4].left_latches_reg[3][4].
+DSP Report: operator row[3].col[4].mac/cout is absorbed into DSP row[3].col[4].left_latches_reg[3][4].
+DSP Report: operator row[3].col[4].mac/cout0 is absorbed into DSP row[3].col[4].left_latches_reg[3][4].
+DSP Report: Generating DSP row[3].col[5].left_latches_reg[3][5], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[3].col[5].left_latches_reg[3][5] is absorbed into DSP row[3].col[5].left_latches_reg[3][5].
+DSP Report: operator row[3].col[5].mac/cout is absorbed into DSP row[3].col[5].left_latches_reg[3][5].
+DSP Report: operator row[3].col[5].mac/cout0 is absorbed into DSP row[3].col[5].left_latches_reg[3][5].
+DSP Report: Generating DSP row[3].col[6].left_latches_reg[3][6], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[3].col[6].left_latches_reg[3][6] is absorbed into DSP row[3].col[6].left_latches_reg[3][6].
+DSP Report: operator row[3].col[6].mac/cout is absorbed into DSP row[3].col[6].left_latches_reg[3][6].
+DSP Report: operator row[3].col[6].mac/cout0 is absorbed into DSP row[3].col[6].left_latches_reg[3][6].
+DSP Report: Generating DSP row[3].col[7].left_latches_reg[3][7], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[3].col[7].left_latches_reg[3][7] is absorbed into DSP row[3].col[7].left_latches_reg[3][7].
+DSP Report: operator row[3].col[7].mac/cout is absorbed into DSP row[3].col[7].left_latches_reg[3][7].
+DSP Report: operator row[3].col[7].mac/cout0 is absorbed into DSP row[3].col[7].left_latches_reg[3][7].
+DSP Report: Generating DSP row[2].col[0].left_latches_reg[2][0], operation Mode is: (A*B)'.
+DSP Report: register row[2].col[0].left_latches_reg[2][0] is absorbed into DSP row[2].col[0].left_latches_reg[2][0].
+DSP Report: operator row[2].col[0].mac/cout is absorbed into DSP row[2].col[0].left_latches_reg[2][0].
+DSP Report: operator row[2].col[0].mac/cout0 is absorbed into DSP row[2].col[0].left_latches_reg[2][0].
+DSP Report: Generating DSP row[2].col[1].left_latches_reg[2][1], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[2].col[1].left_latches_reg[2][1] is absorbed into DSP row[2].col[1].left_latches_reg[2][1].
+DSP Report: operator row[2].col[1].mac/cout is absorbed into DSP row[2].col[1].left_latches_reg[2][1].
+DSP Report: operator row[2].col[1].mac/cout0 is absorbed into DSP row[2].col[1].left_latches_reg[2][1].
+DSP Report: Generating DSP row[2].col[2].left_latches_reg[2][2], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[2].col[2].left_latches_reg[2][2] is absorbed into DSP row[2].col[2].left_latches_reg[2][2].
+DSP Report: operator row[2].col[2].mac/cout is absorbed into DSP row[2].col[2].left_latches_reg[2][2].
+DSP Report: operator row[2].col[2].mac/cout0 is absorbed into DSP row[2].col[2].left_latches_reg[2][2].
+DSP Report: Generating DSP row[2].col[3].left_latches_reg[2][3], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[2].col[3].left_latches_reg[2][3] is absorbed into DSP row[2].col[3].left_latches_reg[2][3].
+DSP Report: operator row[2].col[3].mac/cout is absorbed into DSP row[2].col[3].left_latches_reg[2][3].
+DSP Report: operator row[2].col[3].mac/cout0 is absorbed into DSP row[2].col[3].left_latches_reg[2][3].
+DSP Report: Generating DSP row[2].col[4].left_latches_reg[2][4], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[2].col[4].left_latches_reg[2][4] is absorbed into DSP row[2].col[4].left_latches_reg[2][4].
+DSP Report: operator row[2].col[4].mac/cout is absorbed into DSP row[2].col[4].left_latches_reg[2][4].
+DSP Report: operator row[2].col[4].mac/cout0 is absorbed into DSP row[2].col[4].left_latches_reg[2][4].
+DSP Report: Generating DSP row[2].col[5].left_latches_reg[2][5], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[2].col[5].left_latches_reg[2][5] is absorbed into DSP row[2].col[5].left_latches_reg[2][5].
+DSP Report: operator row[2].col[5].mac/cout is absorbed into DSP row[2].col[5].left_latches_reg[2][5].
+DSP Report: operator row[2].col[5].mac/cout0 is absorbed into DSP row[2].col[5].left_latches_reg[2][5].
+DSP Report: Generating DSP row[2].col[6].left_latches_reg[2][6], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[2].col[6].left_latches_reg[2][6] is absorbed into DSP row[2].col[6].left_latches_reg[2][6].
+DSP Report: operator row[2].col[6].mac/cout is absorbed into DSP row[2].col[6].left_latches_reg[2][6].
+DSP Report: operator row[2].col[6].mac/cout0 is absorbed into DSP row[2].col[6].left_latches_reg[2][6].
+DSP Report: Generating DSP row[2].col[7].left_latches_reg[2][7], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[2].col[7].left_latches_reg[2][7] is absorbed into DSP row[2].col[7].left_latches_reg[2][7].
+DSP Report: operator row[2].col[7].mac/cout is absorbed into DSP row[2].col[7].left_latches_reg[2][7].
+DSP Report: operator row[2].col[7].mac/cout0 is absorbed into DSP row[2].col[7].left_latches_reg[2][7].
+DSP Report: Generating DSP row[1].col[0].left_latches_reg[1][0], operation Mode is: (A*B)'.
+DSP Report: register row[1].col[0].left_latches_reg[1][0] is absorbed into DSP row[1].col[0].left_latches_reg[1][0].
+DSP Report: operator row[1].col[0].mac/cout is absorbed into DSP row[1].col[0].left_latches_reg[1][0].
+DSP Report: operator row[1].col[0].mac/cout0 is absorbed into DSP row[1].col[0].left_latches_reg[1][0].
+DSP Report: Generating DSP row[1].col[1].left_latches_reg[1][1], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[1].col[1].left_latches_reg[1][1] is absorbed into DSP row[1].col[1].left_latches_reg[1][1].
+DSP Report: operator row[1].col[1].mac/cout is absorbed into DSP row[1].col[1].left_latches_reg[1][1].
+DSP Report: operator row[1].col[1].mac/cout0 is absorbed into DSP row[1].col[1].left_latches_reg[1][1].
+DSP Report: Generating DSP row[1].col[2].left_latches_reg[1][2], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[1].col[2].left_latches_reg[1][2] is absorbed into DSP row[1].col[2].left_latches_reg[1][2].
+DSP Report: operator row[1].col[2].mac/cout is absorbed into DSP row[1].col[2].left_latches_reg[1][2].
+DSP Report: operator row[1].col[2].mac/cout0 is absorbed into DSP row[1].col[2].left_latches_reg[1][2].
+DSP Report: Generating DSP row[1].col[3].left_latches_reg[1][3], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[1].col[3].left_latches_reg[1][3] is absorbed into DSP row[1].col[3].left_latches_reg[1][3].
+DSP Report: operator row[1].col[3].mac/cout is absorbed into DSP row[1].col[3].left_latches_reg[1][3].
+DSP Report: operator row[1].col[3].mac/cout0 is absorbed into DSP row[1].col[3].left_latches_reg[1][3].
+DSP Report: Generating DSP row[1].col[4].left_latches_reg[1][4], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[1].col[4].left_latches_reg[1][4] is absorbed into DSP row[1].col[4].left_latches_reg[1][4].
+DSP Report: operator row[1].col[4].mac/cout is absorbed into DSP row[1].col[4].left_latches_reg[1][4].
+DSP Report: operator row[1].col[4].mac/cout0 is absorbed into DSP row[1].col[4].left_latches_reg[1][4].
+DSP Report: Generating DSP row[1].col[5].left_latches_reg[1][5], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[1].col[5].left_latches_reg[1][5] is absorbed into DSP row[1].col[5].left_latches_reg[1][5].
+DSP Report: operator row[1].col[5].mac/cout is absorbed into DSP row[1].col[5].left_latches_reg[1][5].
+DSP Report: operator row[1].col[5].mac/cout0 is absorbed into DSP row[1].col[5].left_latches_reg[1][5].
+DSP Report: Generating DSP row[1].col[6].left_latches_reg[1][6], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[1].col[6].left_latches_reg[1][6] is absorbed into DSP row[1].col[6].left_latches_reg[1][6].
+DSP Report: operator row[1].col[6].mac/cout is absorbed into DSP row[1].col[6].left_latches_reg[1][6].
+DSP Report: operator row[1].col[6].mac/cout0 is absorbed into DSP row[1].col[6].left_latches_reg[1][6].
+DSP Report: Generating DSP row[1].col[7].left_latches_reg[1][7], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[1].col[7].left_latches_reg[1][7] is absorbed into DSP row[1].col[7].left_latches_reg[1][7].
+DSP Report: operator row[1].col[7].mac/cout is absorbed into DSP row[1].col[7].left_latches_reg[1][7].
+DSP Report: operator row[1].col[7].mac/cout0 is absorbed into DSP row[1].col[7].left_latches_reg[1][7].
+DSP Report: Generating DSP row[0].col[0].left_latches_reg[0][0], operation Mode is: (A*B)'.
+DSP Report: register row[0].col[0].left_latches_reg[0][0] is absorbed into DSP row[0].col[0].left_latches_reg[0][0].
+DSP Report: operator row[0].col[0].mac/cout is absorbed into DSP row[0].col[0].left_latches_reg[0][0].
+DSP Report: operator row[0].col[0].mac/cout0 is absorbed into DSP row[0].col[0].left_latches_reg[0][0].
+DSP Report: Generating DSP row[0].col[1].left_latches_reg[0][1], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[0].col[1].left_latches_reg[0][1] is absorbed into DSP row[0].col[1].left_latches_reg[0][1].
+DSP Report: operator row[0].col[1].mac/cout is absorbed into DSP row[0].col[1].left_latches_reg[0][1].
+DSP Report: operator row[0].col[1].mac/cout0 is absorbed into DSP row[0].col[1].left_latches_reg[0][1].
+DSP Report: Generating DSP row[0].col[2].left_latches_reg[0][2], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[0].col[2].left_latches_reg[0][2] is absorbed into DSP row[0].col[2].left_latches_reg[0][2].
+DSP Report: operator row[0].col[2].mac/cout is absorbed into DSP row[0].col[2].left_latches_reg[0][2].
+DSP Report: operator row[0].col[2].mac/cout0 is absorbed into DSP row[0].col[2].left_latches_reg[0][2].
+DSP Report: Generating DSP row[0].col[3].left_latches_reg[0][3], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[0].col[3].left_latches_reg[0][3] is absorbed into DSP row[0].col[3].left_latches_reg[0][3].
+DSP Report: operator row[0].col[3].mac/cout is absorbed into DSP row[0].col[3].left_latches_reg[0][3].
+DSP Report: operator row[0].col[3].mac/cout0 is absorbed into DSP row[0].col[3].left_latches_reg[0][3].
+DSP Report: Generating DSP row[0].col[4].left_latches_reg[0][4], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[0].col[4].left_latches_reg[0][4] is absorbed into DSP row[0].col[4].left_latches_reg[0][4].
+DSP Report: operator row[0].col[4].mac/cout is absorbed into DSP row[0].col[4].left_latches_reg[0][4].
+DSP Report: operator row[0].col[4].mac/cout0 is absorbed into DSP row[0].col[4].left_latches_reg[0][4].
+DSP Report: Generating DSP row[0].col[5].left_latches_reg[0][5], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[0].col[5].left_latches_reg[0][5] is absorbed into DSP row[0].col[5].left_latches_reg[0][5].
+DSP Report: operator row[0].col[5].mac/cout is absorbed into DSP row[0].col[5].left_latches_reg[0][5].
+DSP Report: operator row[0].col[5].mac/cout0 is absorbed into DSP row[0].col[5].left_latches_reg[0][5].
+DSP Report: Generating DSP row[0].col[6].left_latches_reg[0][6], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[0].col[6].left_latches_reg[0][6] is absorbed into DSP row[0].col[6].left_latches_reg[0][6].
+DSP Report: operator row[0].col[6].mac/cout is absorbed into DSP row[0].col[6].left_latches_reg[0][6].
+DSP Report: operator row[0].col[6].mac/cout0 is absorbed into DSP row[0].col[6].left_latches_reg[0][6].
+DSP Report: Generating DSP row[0].col[7].left_latches_reg[0][7], operation Mode is: (PCIN+A*B)'.
+DSP Report: register row[0].col[7].left_latches_reg[0][7] is absorbed into DSP row[0].col[7].left_latches_reg[0][7].
+DSP Report: operator row[0].col[7].mac/cout is absorbed into DSP row[0].col[7].left_latches_reg[0][7].
+DSP Report: operator row[0].col[7].mac/cout0 is absorbed into DSP row[0].col[7].left_latches_reg[0][7].
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1415.398 ; gain = 86.051
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++------------+---------------+-----------+----------------------+-------------+
+|Module Name | RTL Object    | Inference | Size (Depth x Width) | Primitives  | 
++------------+---------------+-----------+----------------------+-------------+
+|Wrapper     | acts_sram_reg | Implied   | 8 x 16               | RAM32M x 3  | 
++------------+---------------+-----------+----------------------+-------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+
+DSP: Preliminary Mapping Report (see note below)
++------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|VpuHsa      | (A*B)'      | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (A*B)'      | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (A*B)'      | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (A*B)'      | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (A*B)'      | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (A*B)'      | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (A*B)'      | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (A*B)'      | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 1    | 0    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|VpuHsa      | (PCIN+A*B)' | 16     | 16     | -      | -      | 16     | 0    | 0    | -    | -    | -     | 0    | 1    | 
++------------+-------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 1415.398 ; gain = 86.051
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished Timing Optimization : Time (s): cpu = 00:00:24 ; elapsed = 00:00:25 . Memory (MB): peak = 1503.574 ; gain = 174.227
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping Report
++------------+---------------+-----------+----------------------+-------------+
+|Module Name | RTL Object    | Inference | Size (Depth x Width) | Primitives  | 
++------------+---------------+-----------+----------------------+-------------+
+|Wrapper     | acts_sram_reg | Implied   | 8 x 16               | RAM32M x 3  | 
++------------+---------------+-----------+----------------------+-------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished Technology Mapping : Time (s): cpu = 00:00:25 ; elapsed = 00:00:26 . Memory (MB): peak = 1513.688 ; gain = 184.340
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -230,37 +638,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished IO Insertion : Time (s): cpu = 00:00:28 ; elapsed = 00:00:28 . Memory (MB): peak = 1513.688 ; gain = 184.340
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:28 ; elapsed = 00:00:28 . Memory (MB): peak = 1513.688 ; gain = 184.340
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 1513.688 ; gain = 184.340
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 1513.688 ; gain = 184.340
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 1513.688 ; gain = 184.340
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 1513.688 ; gain = 184.340
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -270,8 +678,7 @@ Report BlackBoxes:
 +------+--------------+----------+
 |      |BlackBox name |Instances |
 +------+--------------+----------+
-|1     |ila_0         |         1|
-|2     |clk_wiz_0     |         1|
+|1     |clk_wiz_0     |         1|
 +------+--------------+----------+
 
 Report Cell Usage: 
@@ -279,42 +686,44 @@ Report Cell Usage:
 |      |Cell    |Count |
 +------+--------+------+
 |1     |clk_wiz |     1|
-|2     |ila     |     1|
-|3     |BUFG    |     1|
-|4     |CARRY4  |    31|
-|5     |LUT1    |    10|
-|6     |LUT2    |    58|
-|7     |LUT3    |    39|
-|8     |LUT4    |    68|
-|9     |LUT5    |    75|
-|10    |LUT6    |    75|
-|11    |FDRE    |   286|
-|12    |IBUF    |     2|
-|13    |OBUF    |    17|
+|2     |CARRY4  |    19|
+|3     |DSP48E1 |    64|
+|5     |LUT1    |     7|
+|6     |LUT2    |    73|
+|7     |LUT3    |    87|
+|8     |LUT4    |   203|
+|9     |LUT5    |   130|
+|10    |LUT6    |   374|
+|11    |MUXF7   |   128|
+|12    |RAM32M  |     3|
+|13    |FDRE    |  2467|
+|14    |IBUF    |     2|
+|15    |OBUF    |    17|
 +------+--------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 1513.688 ; gain = 184.340
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:13 ; elapsed = 00:00:18 . Memory (MB): peak = 1426.742 ; gain = 0.000
-Synthesis Optimization Complete : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 1426.742 ; gain = 97.543
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:21 ; elapsed = 00:00:27 . Memory (MB): peak = 1513.688 ; gain = 98.289
+Synthesis Optimization Complete : Time (s): cpu = 00:00:28 ; elapsed = 00:00:29 . Memory (MB): peak = 1513.688 ; gain = 184.340
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1426.742 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 31 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.037 . Memory (MB): peak = 1516.523 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 214 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1429.359 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1520.250 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
-No Unisim elements were transformed.
+  A total of 3 instances were transformed.
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 3 instances
 
-Synth Design complete, checksum: 69b704b4
+Synth Design complete, checksum: 66c3251c
 INFO: [Common 17-83] Releasing license: Synthesis
-39 Infos, 23 Warnings, 0 Critical Warnings and 0 Errors encountered.
+35 Infos, 77 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 1429.359 ; gain = 100.160
+synth_design: Time (s): cpu = 00:00:31 ; elapsed = 00:00:33 . Memory (MB): peak = 1520.250 ; gain = 190.902
 INFO: [Common 17-600] The following parameters have non-default value.
 tcl.collectionResultDisplayLimit
 INFO: [Common 17-1381] The checkpoint 'C:/Users/dr309/Desktop/ECE-552-project/FPGA_impl/FPGA_impl.runs/synth_1/Wrapper.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file Wrapper_utilization_synth.rpt -pb Wrapper_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Sun Nov 30 22:50:25 2025...
+INFO: [Common 17-206] Exiting Vivado at Mon Dec  1 02:13:37 2025...

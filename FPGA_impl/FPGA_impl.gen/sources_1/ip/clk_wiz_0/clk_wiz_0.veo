@@ -56,6 +56,7 @@
 //   Clock     Freq (MHz)  (degrees)    (%)     Jitter (ps)  Error (ps)
 //----------------------------------------------------------------------------
 // __clk100__100.00000______0.000______50.0______137.681____105.461
+// clk_uart__14.75410______0.000______50.0______203.429____105.461
 //
 //----------------------------------------------------------------------------
 // Input Clock   Freq (MHz)    Input Jitter (UI)
@@ -72,6 +73,7 @@
    (
     // Clock out ports
     .clk100(clk100),     // output clk100
+    .clk_uart(clk_uart),     // output clk_uart
     // Status and control signals
     .reset(reset), // input reset
     .locked(locked),       // output locked
