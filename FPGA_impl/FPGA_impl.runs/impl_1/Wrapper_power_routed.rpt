@@ -1,7 +1,7 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2021.1 (win64) Build 3247384 Thu Jun 10 19:36:33 MDT 2021
-| Date             : Tue Dec  2 02:24:44 2025
+| Date             : Tue Dec  2 15:13:05 2025
 | Host             : P2-07 running 64-bit major release  (build 9200)
 | Command          : report_power -file Wrapper_power_routed.rpt -pb Wrapper_power_summary_routed.pb -rpx Wrapper_power_routed.rpx
 | Design           : Wrapper
@@ -53,14 +53,14 @@ Table of Contents
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
 | Clocks                   |     0.012 |       10 |       --- |             --- |
-| Slice Logic              |     0.001 |     3783 |       --- |             --- |
-|   LUT as Logic           |    <0.001 |      753 |     63400 |            1.19 |
-|   Register               |    <0.001 |     2608 |    126800 |            2.06 |
+| Slice Logic              |     0.001 |     3786 |       --- |             --- |
+|   LUT as Logic           |    <0.001 |      761 |     63400 |            1.20 |
+|   Register               |    <0.001 |     2615 |    126800 |            2.06 |
 |   F7/F8 Muxes            |    <0.001 |      129 |     63400 |            0.20 |
 |   CARRY4                 |    <0.001 |       19 |     15850 |            0.12 |
 |   LUT as Distributed RAM |    <0.001 |       12 |     19000 |            0.06 |
 |   Others                 |     0.000 |       80 |       --- |             --- |
-| Signals                  |     0.005 |     5962 |       --- |             --- |
+| Signals                  |     0.005 |     5985 |       --- |             --- |
 | PLL                      |     0.100 |        1 |         6 |           16.67 |
 | DSPs                     |     0.036 |       64 |       240 |           26.67 |
 | I/O                      |    <0.001 |       20 |       210 |            9.52 |

@@ -137,6 +137,7 @@ module Wrapper(
 		.result(result)
 	);
 
+    // TODO: in recv stage, just fill the weights sram as needed
     reg compute_done;       // flag for switching back to slow clock
 	always @(posedge clk100) begin
         if (sys_reset || internal_reset) begin
@@ -209,6 +210,9 @@ module Wrapper(
             result_index     <= 0; 
             LED[15:0] <= 0;
             internal_reset <= 0;        // internal reset max 1 cycle
+        end else if (frame_ready && rx_data_frame == 32'hFFFFFFFF) begin      // capture a reset signal
+            internal_reset <= 1;
+            operating_mode <= 2'b00;    // internal reset does not set op mode, do here manually
         end else if (operating_mode == 2'b00) begin
             send_aligner <= 1;  // want this to start at 1
             if (frame_ready) begin

@@ -13,7 +13,13 @@ def rand_test_fpga(port, N = 8):
     nresult = np.matmul(npmat, npvec) # expected result
     
     sys_start = time.time()
-    start_time = port.write_data(vector, matrix, N)
+    succ, start_time = port.write_data(vector, matrix, N)
+
+    while not succ:
+        print(" >>>> Timeout, repeating data send <<<< ")
+        port.reset(fpga=True)
+        succ, start_time = port.write_data(vector, matrix, N)
+
     result, end_time = port.read_data(N)
     sys_end = time.time()
     
@@ -52,9 +58,11 @@ class SerialPort:
         else:
             raise Exception(f"Unable to open {port}")
 
-    def reset(self):
+    def reset(self,fpga=False):
         self.ser.reset_input_buffer()
         self.ser.reset_output_buffer()
+        if fpga:
+            self.ser.write(bytes([0xFF]*4))
 
     def read_data(self, result_size, verb=0):
         result = [None for i in range(result_size)]
@@ -140,7 +148,7 @@ class SerialPort:
         # get slice of bits using verilog indexing
         return (n & ((1<<(hi+1))-1)&~((1<<lo)-1))>>lo
 
-    def write_data(self, acts, weights, SIZE, verb=0):
+    def write_data(self, acts, weights, SIZE, verb=0, redundancy=2, timeout=1):
         print("Preparing to write data, beginning alignment procedure")
         while True:
             msg = b'\xde\xad\xbe\xef'
@@ -166,12 +174,14 @@ class SerialPort:
         # TODO: rewrite this as a signle self.ser.write
         #       with a flush and no reads interleaved,
         #       then read at end and repeat if no ack received after timeout
+        last_df_sent = 0
         while True:
             if not stop_sending_df:
                 data = weights[y_ix][x_ix] if sending_weights else acts[y_ix]
                 data_frame = self.build_dataframe(0,sending_weights,x_ix,y_ix,data)
                 self.ser.write(data_frame)
                 df_count += 1
+                last_df_sent = time.time()
                 # time.sleep(0.01)      KEEP off! Most overhead is this! (0.01 * 32^2 = 40s...)
                 nd = int.from_bytes(data_frame, 'little', signed=False)
                 dx_ix = self.get_bit_slice(nd, 29, 23) 
@@ -194,7 +204,7 @@ class SerialPort:
                         if sending_weights == 2:
                             sending_weights = 0
                             num_times += 1
-                            if num_times == 2:
+                            if num_times == redundancy:
                                 stop_sending_df = True
 
             # Check for 2nd acknowledgement, stop sending
@@ -202,7 +212,11 @@ class SerialPort:
                 word = self.ser.read(4)
                 if word.hex() == '1c1c1c1c':
                     print("\nReceived 2nd acknowledgment, stopping sending")
-                    return time.time()  ## return time we have received ack
+                    return (True, time.time())  ## return time we have received ack
+            
+            # Check for a timeout:
+            if (time.time() - last_df_sent) > timeout:
+                return (False, 0)
 
     def build_dataframe(self, msb, weight, xix, yix, data):
         xix  = self.get_bit_slice(xix,   6, 0)
