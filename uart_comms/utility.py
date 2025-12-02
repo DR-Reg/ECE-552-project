@@ -52,6 +52,10 @@ class SerialPort:
         else:
             raise Exception(f"Unable to open {port}")
 
+    def reset(self):
+        self.ser.reset_input_buffer()
+        self.ser.reset_output_buffer()
+
     def read_data(self, result_size, verb=0):
         result = [None for i in range(result_size)]
 
@@ -159,13 +163,16 @@ class SerialPort:
         stop_sending_df = False
         df_count = 0
         # TODO: matrixify the acts!
+        # TODO: rewrite this as a signle self.ser.write
+        #       with a flush and no reads interleaved,
+        #       then read at end and repeat if no ack received after timeout
         while True:
             if not stop_sending_df:
                 data = weights[y_ix][x_ix] if sending_weights else acts[y_ix]
                 data_frame = self.build_dataframe(0,sending_weights,x_ix,y_ix,data)
                 self.ser.write(data_frame)
                 df_count += 1
-                time.sleep(0.01)
+                # time.sleep(0.01)      KEEP off! Most overhead is this! (0.01 * 32^2 = 40s...)
                 nd = int.from_bytes(data_frame, 'little', signed=False)
                 dx_ix = self.get_bit_slice(nd, 29, 23) 
                 dy_ix = self.get_bit_slice(nd, 22, 16) 
