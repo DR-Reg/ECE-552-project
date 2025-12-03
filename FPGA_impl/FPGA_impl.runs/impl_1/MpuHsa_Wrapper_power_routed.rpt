@@ -1,7 +1,7 @@
 Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2021.1 (win64) Build 3247384 Thu Jun 10 19:36:33 MDT 2021
-| Date             : Wed Dec  3 01:46:42 2025
+| Date             : Wed Dec  3 18:47:36 2025
 | Host             : P2-07 running 64-bit major release  (build 9200)
 | Command          : report_power -file MpuHsa_Wrapper_power_routed.rpt -pb MpuHsa_Wrapper_power_summary_routed.pb -rpx MpuHsa_Wrapper_power_routed.rpx
 | Design           : MpuHsa_Wrapper
@@ -53,18 +53,18 @@ Table of Contents
 | On-Chip                  | Power (W) | Used     | Available | Utilization (%) |
 +--------------------------+-----------+----------+-----------+-----------------+
 | Clocks                   |     0.012 |        8 |       --- |             --- |
-| Slice Logic              |    <0.001 |     4627 |       --- |             --- |
-|   LUT as Logic           |    <0.001 |     1301 |     63400 |            2.05 |
-|   Register               |    <0.001 |     2435 |    126800 |            1.92 |
-|   CARRY4                 |    <0.001 |       65 |     15850 |            0.41 |
-|   LUT as Distributed RAM |    <0.001 |       24 |     19000 |            0.13 |
+| Slice Logic              |     0.001 |     4750 |       --- |             --- |
+|   LUT as Logic           |    <0.001 |     1314 |     63400 |            2.07 |
+|   Register               |    <0.001 |     2527 |    126800 |            1.99 |
+|   CARRY4                 |    <0.001 |       70 |     15850 |            0.44 |
 |   LUT as Shift Register  |    <0.001 |      134 |     19000 |            0.71 |
+|   LUT as Distributed RAM |    <0.001 |       24 |     19000 |            0.13 |
 |   F7/F8 Muxes            |    <0.001 |        4 |     63400 |           <0.01 |
-|   Others                 |     0.000 |      283 |       --- |             --- |
-| Signals                  |     0.001 |     3447 |       --- |             --- |
+|   Others                 |     0.000 |      287 |       --- |             --- |
+| Signals                  |     0.001 |     3539 |       --- |             --- |
 | Block RAM                |     0.005 |        8 |       135 |            5.93 |
 | PLL                      |     0.100 |        1 |         6 |           16.67 |
-| I/O                      |    <0.001 |       20 |       210 |            9.52 |
+| I/O                      |    <0.001 |       36 |       210 |           17.14 |
 | Static Power             |     0.098 |          |           |                 |
 | Total                    |     0.218 |          |           |                 |
 +--------------------------+-----------+----------+-----------+-----------------+

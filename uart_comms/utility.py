@@ -3,106 +3,74 @@ import time
 import numpy as np
 import random
 
-def rand_test_vector_fpga(port, N = 8):
-    vector = [random.randint(0, 100) for i in range(N)]
-    matrix = [[random.randint(0, 100) for i in range(N)] for j in range(N)]
-
-    # remember matrix should come in transposed
-    npmat = np.array(matrix).T
-    npvec = np.array(vector)
-    nresult = np.matmul(npmat, npvec) # expected result
-    
-    sys_start = time.time()
-    succ, start_time = port.vector_write_data(vector, matrix, N)
-
-    while not succ:
-        print(" >>>> Timeout, repeating data send <<<< ")
-        port.reset(fpga=True)
-        succ, start_time = port.vector_write_data(vector, matrix, N)
-
-    result, end_time = port.vector_read_data(N)
-    sys_end = time.time()
-    
-    fpga_delta = end_time - start_time
-    sys_delta = sys_end - sys_start
-
-    recv_res = np.array(result)
-
-    correct = np.array_equal(recv_res, nresult)
-
-    return (correct, fpga_delta, sys_delta)
-
-def rand_test_matrix_fpga(port, N = 8):
-    acts = [[random.randint(0, 100) for i in range(N)] for j in range(N)]
-    weights = [[random.randint(0, 100) for i in range(N)] for j in range(N)]
-
-    # remember matrix should come in transposed
-    npwght = np.array(weights).T
-    npacts = np.array(acts)
-    nresult = np.matmul(npwght, npacts) # expected result
-    
-    sys_start = time.time()
-    succ, start_time = port.matrix_write_data(acts, weights, N, verb=1)
-
-    #while not succ:
-    #    print(" >>>> Timeout, repeating data send <<<< ")
-    #    port.reset(fpga=True)
-    #    succ, start_time = port.matrix_write_data(acts, weights, N)
-
-    result, end_time = port.matrix_read_data(N, verb=1)
-    sys_end = time.time()
-    
-    fpga_delta = end_time - start_time
-    sys_delta = sys_end - sys_start
-
-    recv_res = np.array(result)
-
-    correct = np.array_equal(recv_res, nresult)
-
-    return (correct, fpga_delta, sys_delta)
- 
-
-class SerialPort:
-    def __init__(self, port, bytesize=serial.EIGHTBITS, baudrate=9600, timeout=1):
+class SAUnit:
+    def __init__(self, port, N=8, baudrate=921600, timeout=1):
         self.ser = serial.Serial(
-            port = port,
+            port=port,
             baudrate=baudrate,
-            parity=serial.PARITY_EVEN,
             stopbits=serial.STOPBITS_ONE,
-            bytesize=bytesize,
+            bytesize=serial.EIGHTBITS,
+            parity=serial.PARITY_EVEN,
             timeout=timeout
         )
-        self.bytesize = bytesize
+
         self.baudrate = baudrate
         self.timeout = timeout
         self.port = port
-       
-        # Allow for connection to stabilise
-        time.sleep(2)
-        
-        if self.ser.isOpen():
-            self.ser.flushInput()
-            self.ser.flushOutput()
-            print(f"Connected to {port} at {baudrate} baud")
-            print("Listening...") 
-        else:
-            raise Exception(f"Unable to open {port}")
+        self.N = N
 
-    def reset(self,fpga=False):
+        time.sleep(2)   # Stabilise
+
+        if self.ser.is_open:
+            self.reset()
+        else:   
+            raise Exception(f"Unable to open port {port}")
+
+    def rand_test(self, vector_mode=1, verb=0):
+        N = self.N
+        if vector_mode:
+            acts = [random.randint(0, 100) for i in range(N)]
+        else:
+            acts = [[random.randint(0, 100) for i in range(N)] for j in range(N)]
+        
+        weights = [[random.randint(0, 100) for i in range(N)] for j in range(N)]
+
+        npwght = np.array(weights).T
+        npacts = np.array(acts)
+        nresult = np.matmul(npwght, npacts) # expected result
+
+        sys_start = time.time()
+        succ, start_time = self.write_data(acts, weights, vector_mode=vector_mode, verb=verb, max_resends=5)
+
+        result, end_time = self.read_data(vector_mode=vector_mode, verb=verb)
+        sys_end = time.time()
+        
+        fpga_delta = end_time - start_time
+        sys_delta = sys_end - sys_start
+    
+        recv_res = np.array(result)
+        correct = np.array_equal(recv_res, nresult)
+        return (correct, fpga_delta, sys_delta)
+    
+    def reset(self, fpga=False):
         self.ser.reset_input_buffer()
         self.ser.reset_output_buffer()
         if fpga:
-            self.ser.write(bytes([0xFF]*4))
+            for _ in range(5):
+                self.ser.write(bytes([0xFF]*4))
+            self.ser.flush()
 
-    def matrix_read_data(self, result_size, verb=0):
-        result = [[None for i in range(result_size)] for j in range(result_size)]
+    def read_data(self, vector_mode=1, verb=0):
+        if vector_mode:
+            result = [None for i in range(self.N)]
+        else:
+            result = [[None for i in range(self.N)] for j in range(self.N)]
 
+        # Note: removed saturating counter, trust UART...
+        mis_align = 0
+        ret_time = 0
+        set_time = False
         
-        # Establish alignment by reading DEADBEEF
-        sat_counter = 0     # make sure by receiving it 10 times
-        mis_align = 0       # stores most recent misalignment delta
-        ret_time = 0        # should return when time when first deadbeef received
-        set_time = False    # boolean for once we have set above time
         while True:
             if self.ser.in_waiting >= 4:
                 if not set_time:
@@ -111,141 +79,74 @@ class SerialPort:
                 word = self.ser.read(4)
                 if verb:
                     print("Received:", word.hex())
-                # Check all possible misalignments
+                
                 curr_misal = 0
                 for i in range(4):
                     if word.hex() == 'deadbeef':
                         break
                     word = word[3:4] + word[0:3]
                     curr_misal += 1
-                if curr_misal == 4:         # no misalignments match, reset sat counter
-                    sat_counter = 0
-                elif sat_counter == 0:
+
+                if curr_misal == 4:
+                    print("ERR: extraneous", word.hex())
+                else:
                     mis_align = curr_misal
-                    sat_counter += 1
-                elif sat_counter < 10:
-                    # unmatching misalignment, reset counter
-                    if mis_align != curr_misal:
-                        sat_counter = 0
-                    else:
-                        sat_counter += 1
-                else:   # ok, we have detected the misalignment
-                    # so account for it by reading 4 - misalignment
-                    # since misalignment is no. times had to circular
-                    # shift bytes to the right if i did this e.g.
-                    # 3 times, then that means we are one byte off from
-                    # the start
-                    self.ser.read(4 - mis_align)
+                    # Fix misalignment:
+                    self.ser.read(4-mis_align)
                     break
-        print("Asserted misalignment =", mis_align, "dropped", 4-mis_align, "to correct")
-        print("Ready to receive data")
-        self.ser.write(bytes([0x0C]*4))
-        print("Sent the 1st OK (0C), waiting for valid messages...")
+
+        if verb:
+            print("Asserted misalignment =", mis_align, "dropped", 4-mis_align, "to correct")
+            print("Ready to receive data")
+
+        # Send 5 to make sure FPGA catches 1
+        for i in range(5):
+            self.ser.write(bytes([0x0C]*4))
+
+        self.ser.flush()
+
+        if verb:
+            print("Sent the 1st OK (0C), waiting for valid messages...") 
+
         while True:
-            word = self.ser.read(4)
-            if word:
-                # valid messages have msb = 0
+            if self.ser.in_waiting >= 4:
+                word = self.ser.read(4)
                 n = self.bytes_to_num(word)
                 msb = self.get_bit(n, 31)
                 if msb:
-                    if n != 0xdeadbeef:
-                        print("Extraneous non-message data after alignment:", word.hex())
-                    else:
-                        if verb:
-                            print("Extra deadbeef receieved, still waiting for messages...")
-                else:
-                    x_ix = self.get_bit_slice(n, 29, 23)
-                    y_ix = self.get_bit_slice(n, 22, 16)
-                    data = self.get_bit_slice(n, 15, 0)
                     if verb:
-                        print(f"Received result ({word.hex()}) for posn ({x_ix}, {y_ix}), data = {data}")
+                        print("Extraneous message recvd", word.hex())
+                    continue
+                
+                x_ix = self.get_bit_slice(n, 29, 23)
+                y_ix = self.get_bit_slice(n, 22, 16)
+                data = self.get_bit_slice(n, 15, 0)
+                if verb:
+                    print(f"Received result ({word.hex()}) for posn ({x_ix}, {y_ix}), data = {data}")
 
+                if vector_mode:
+                    result[y_ix] = data
+                else:
                     result[y_ix][x_ix] = data
 
-            if self.count_nones(result) == 0:
-                print("Finished receiving, sending 2nd OK (1C)")
-                self.ser.write(bytes([0x1C]*4))
-                return (result, ret_time) 
-
-    def count_nones(self, mat):
-        cnt = 0
-        for row in mat:
-            for e in row:
-                if e is None:
-                    cnt += 1
-        return cnt
-
-    def vector_read_data(self, result_size, verb=0):
-        result = [None for i in range(result_size)]
-
-        
-        # Establish alignment by reading DEADBEEF
-        sat_counter = 0     # make sure by receiving it 10 times
-        mis_align = 0       # stores most recent misalignment delta
-        ret_time = 0        # should return when time when first deadbeef received
-        set_time = False    # boolean for once we have set above time
-        while True:
-            if self.ser.in_waiting >= 4:
-                if not set_time:
-                    ret_time = time.time()
-                    set_time = True
-                word = self.ser.read(4)
-                if verb:
-                    print("Received:", word.hex())
-                # Check all possible misalignments
-                curr_misal = 0
-                for i in range(4):
-                    if word.hex() == 'deadbeef':
-                        break
-                    word = word[3:4] + word[0:3]
-                    curr_misal += 1
-                if curr_misal == 4:         # no misalignments match, reset sat counter
-                    sat_counter = 0
-                elif sat_counter == 0:
-                    mis_align = curr_misal
-                    sat_counter += 1
-                elif sat_counter < 10:
-                    # unmatching misalignment, reset counter
-                    if mis_align != curr_misal:
-                        sat_counter = 0
-                    else:
-                        sat_counter += 1
-                else:   # ok, we have detected the misalignment
-                    # so account for it by reading 4 - misalignment
-                    # since misalignment is no. times had to circular
-                    # shift bytes to the right if i did this e.g.
-                    # 3 times, then that means we are one byte off from
-                    # the start
-                    self.ser.read(4 - mis_align)
-                    break
-        print("Asserted misalignment =", mis_align, "dropped", 4-mis_align, "to correct")
-        print("Ready to receive data")
-        self.ser.write(bytes([0x0C]*4))
-        print("Sent the 1st OK (0C), waiting for valid messages...")
-        while True:
-            word = self.ser.read(4)
-            if word:
-                # valid messages have msb = 0
-                n = self.bytes_to_num(word)
-                msb = self.get_bit(n, 31)
-                if msb:
-                    if n != 0xdeadbeef:
-                        print("Extraneous non-message data after alignment:", word.hex())
-                    else:
-                        if verb:
-                            print("Extra deadbeef receieved, still waiting for messages...")
-                else:
-                    x_ix = self.get_bit_slice(n, 29, 23)
-                    y_ix = self.get_bit_slice(n, 22, 16)
-                    data = self.get_bit_slice(n, 15, 0)
+                if not self.has_nones(result, vector_mode):
                     if verb:
-                        print(f"Received result ({word.hex()}) for posn ({x_ix}, {y_ix}), data = {data}")
+                        print("Finished receiving, sending 2nd OK (1C)")
+                    self.ser.write(bytes([0x1C]*4))
+                    self.ser.flush()
+                    return (result, ret_time)
 
-                    result[y_ix] = data
-            if len([e for e in result if e is None]) == 0:
-                print("Finished receiving, sending 2nd OK (1C)")
-                self.ser.write(bytes([0x1C]*4))
-                return (result, ret_time)
+    def has_nones(self, res, vector_mode):
+        if vector_mode:
+            for e in res:
+                if e is None:
+                    return True
+        else:
+            for row in res:
+                for e in row:
+                    if e is None:
+                        return True
+        return False
 
     def bytes_to_num(self,word):
         # assuming word is 4 bytes
@@ -258,148 +159,90 @@ class SerialPort:
     def get_bit_slice(self, n, hi, lo):
         # get slice of bits using verilog indexing
         return (n & ((1<<(hi+1))-1)&~((1<<lo)-1))>>lo
+ 
 
-    # really high redundancy for matrices...
-    def matrix_write_data(self, acts, weights, SIZE, verb=0, redundancy=2, timeout=1):
-        print("Preparing to write data, beginning alignment procedure")
+    def write_data(self, acts, weights, vector_mode=1, verb=0, max_resends=3):
+        if verb:
+            print("Beginning alignment procedure for writing")
+
         while True:
             msg = b'\xde\xad\xbe\xef'
-            self.ser.write(msg[::-1])   # little end
+            self.ser.write(4*msg[::-1])   # little end
+            self.ser.flush()
             if verb:
                 print("Sent", msg.hex())
-            time.sleep(0.01)            # a bit of pause so no bottleneck send path
+            time.sleep(0.01)
+
             if self.ser.in_waiting >= 4:
                 word = self.ser.read(4)
+                if verb:
+                    print("Received:", word.hex())
                 if word.hex() == '0c0c0c0c':
-                    print("Received 1st acknowledgement")
+                    if verb:
+                        print("Received 1st acknowledgement")
                     magic = b'\xda\x22\x1d\x06'
                     self.ser.write(magic[::-1])
-                    print("Sent magic", magic.hex())
+                    self.ser.flush()
+                    if verb:
+                        print("Sent magic", magic.hex())
                     break
-        print("Beginning to send data payload")
-        sending_weights = 0
-        x_ix = y_ix = 0
-        num_times = 0
-        stop_sending_df = False
-        df_count = 0
-        # TODO: matrixify the acts!
-        # TODO: rewrite this as a signle self.ser.write
-        #       with a flush and no reads interleaved,
-        #       then read at end and repeat if no ack received after timeout
-        last_df_sent = 0
+
+        if verb:
+            print("Beginning to send data payload")
+
+        weight_data = self.pack_matrix(weights)
+
+        if vector_mode:
+            act_data = self.pack_vector(acts)
+        else:
+            act_data = self.pack_matrix(acts, is_weights=0) 
+
+        self.ser.write(weight_data)
+        self.ser.write(act_data)
+        self.ser.flush()
+
+        if verb:
+            print("Sent two packs")
+        time.sleep(0.01)
+        last_contact = time.time()
+        num_times = 1
         while True:
-            if not stop_sending_df:
-                data = weights[y_ix][x_ix] if sending_weights else acts[y_ix][x_ix]
-                data_frame = self.build_dataframe(0,sending_weights,x_ix,y_ix,data)
-                self.ser.write(data_frame)
-                df_count += 1
-                last_df_sent = time.time()
-                # FIXME FIXME remove this somehow
-                time.sleep(0.01)      
-                nd = int.from_bytes(data_frame, 'little', signed=False)
-                dx_ix = self.get_bit_slice(nd, 29, 23) 
-                dy_ix = self.get_bit_slice(nd, 22, 16) 
-                dsending_weights = self.get_bit(nd, 30)
-                ddata = self.get_bit_slice(nd, 3, 0)
-                if verb:
-                    print(f"Sent data frame (run={num_times}, x={dx_ix}, y={dy_ix}, a/w={dsending_weights}, data={ddata}) :", data_frame.hex())
-                else:
-                    print(f"Sent {df_count} frames of {SIZE*SIZE + SIZE} unique", end="\r")
-
-                # update the indeces appropriately
-                x_ix += 1
-                if x_ix == SIZE:
-                    y_ix += 1
-                    x_ix = 0
-                    if y_ix == SIZE:
-                        sending_weights += 1
-                        y_ix = 0
-                        if sending_weights == 2:
-                            sending_weights = 0
-                            num_times += 1
-                            if num_times == redundancy:
-                                stop_sending_df = True
-
-            # Check for 2nd acknowledgement, stop sending
             if self.ser.in_waiting >= 4:
                 word = self.ser.read(4)
                 if word.hex() == '1c1c1c1c':
-                    print("\nReceived 2nd acknowledgment, stopping sending")
-                    return (True, time.time())  ## return time we have received ack
-            
-            # Check for a timeout:
-            if (time.time() - last_df_sent) > timeout:
-                return (False, 0) 
+                    if verb:
+                        print("\nReceived 2nd acknowledgment, stopping sending")
+                    return (True, time.time())
 
-    def vector_write_data(self, acts, weights, SIZE, verb=0, redundancy=2, timeout=1):
-        print("Preparing to write data, beginning alignment procedure")
-        while True:
-            msg = b'\xde\xad\xbe\xef'
-            self.ser.write(msg[::-1])   # little end
-            if verb:
-                print("Sent", msg.hex())
-            time.sleep(0.01)            # a bit of pause so no bottleneck send path
-            if self.ser.in_waiting >= 4:
-                word = self.ser.read(4)
-                if word.hex() == '0c0c0c0c':
-                    print("Received 1st acknowledgement")
-                    magic = b'\xda\x22\x1d\x06'
-                    self.ser.write(magic[::-1])
-                    print("Sent magic", magic.hex())
-                    break
-        print("Beginning to send data payload")
-        sending_weights = 0
-        x_ix = y_ix = 0
-        num_times = 0
-        stop_sending_df = False
-        df_count = 0
-        # TODO: matrixify the acts!
-        # TODO: rewrite this as a signle self.ser.write
-        #       with a flush and no reads interleaved,
-        #       then read at end and repeat if no ack received after timeout
-        last_df_sent = 0
-        while True:
-            if not stop_sending_df:
-                data = weights[y_ix][x_ix] if sending_weights else acts[y_ix]
-                data_frame = self.build_dataframe(0,sending_weights,x_ix,y_ix,data)
-                self.ser.write(data_frame)
-                df_count += 1
-                last_df_sent = time.time()
-                # time.sleep(0.01)      KEEP off! Most overhead is this! (0.01 * 32^2 = 40s...)
-                nd = int.from_bytes(data_frame, 'little', signed=False)
-                dx_ix = self.get_bit_slice(nd, 29, 23) 
-                dy_ix = self.get_bit_slice(nd, 22, 16) 
-                dsending_weights = self.get_bit(nd, 30)
-                ddata = self.get_bit_slice(nd, 3, 0)
+            if time.time() - last_contact > 0.1:
+                if num_times == max_resends:
+                    if verb:
+                        print("Timeout, max resends reached. Abort.")
+                    return (False, 0)
                 if verb:
-                    print(f"Sent data frame (run={num_times}, x={dx_ix}, y={dy_ix}, a/w={dsending_weights}, data={ddata}) :", data_frame.hex())
-                else:
-                    print(f"Sent {df_count} frames of {SIZE*SIZE + SIZE} unique", end="\r")
+                    print("Timeout... resending")
+                self.ser.write(weight_data)
+                self.ser.write(act_data)
+                self.ser.flush() 
+                time.sleep(0.01)
+                num_times += 1
+        
+    def pack_matrix(self, mat, is_weights=1):
+        ret = b""
+        for y_ix in range(self.N):
+            for x_ix in range(self.N):
+                data = mat[x_ix][y_ix]
+                data_frame = self.build_dataframe(0,is_weights,x_ix,y_ix,data)
+                ret += data_frame
+        return ret
 
-                # update the indeces appropriately
-                x_ix += 1
-                if x_ix == SIZE or (x_ix == 1 and sending_weights == 0):
-                    y_ix += 1
-                    x_ix = 0
-                    if y_ix == SIZE:
-                        sending_weights += 1
-                        y_ix = 0
-                        if sending_weights == 2:
-                            sending_weights = 0
-                            num_times += 1
-                            if num_times == redundancy:
-                                stop_sending_df = True
-
-            # Check for 2nd acknowledgement, stop sending
-            if self.ser.in_waiting >= 4:
-                word = self.ser.read(4)
-                if word.hex() == '1c1c1c1c':
-                    print("\nReceived 2nd acknowledgment, stopping sending")
-                    return (True, time.time())  ## return time we have received ack
-            
-            # Check for a timeout:
-            if (time.time() - last_df_sent) > timeout:
-                return (False, 0)
+    def pack_vector(self, vec):
+        ret = b""
+        for y_ix in range(self.N):
+            data = vec[y_ix]
+            data_frame = self.build_dataframe(0,0,0,y_ix,data)
+            ret += data_frame
+        return ret
 
     def build_dataframe(self, msb, weight, xix, yix, data):
         xix  = self.get_bit_slice(xix,   6, 0)
@@ -414,4 +257,4 @@ class SerialPort:
     def close(self):
         if self.ser and self.ser.is_open:
             self.ser.close()
-            print(f"\nClosed port {self.port}")
+            print(f"\nClosed port {self.port}") 

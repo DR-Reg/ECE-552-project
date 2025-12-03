@@ -1,2 +1,2 @@
 
-2018.1’Bus skew results˜¥RöA
+2018.1’Bus skew results˜¥åA
