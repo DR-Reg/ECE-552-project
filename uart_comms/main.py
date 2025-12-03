@@ -4,14 +4,16 @@ import random
 import numpy as np
 
 port = SerialPort("COM59", baudrate=921600)
-NUM_RUNS = 50
+# port = SerialPort("COM59", baudrate=9600)
+# NUM_RUNS = 50
+NUM_RUNS = 1
 try:
     tot_sys_del = tot_fp_del = 0
     total_corr = 0
     for i in range(NUM_RUNS):
         port.reset()
         print(f"================== Performing run {i+1}... ==================")
-        corr, fdel, sysdel = rand_test_fpga(port) 
+        corr, fdel, sysdel = rand_test_matrix_fpga(port, N=2) 
         print("Result:","OK" if corr else "FAIL", end=" ")
         print(f"sys: {sysdel:.2f}s, fpga: {fdel:.5f}s")
         tot_sys_del += sysdel

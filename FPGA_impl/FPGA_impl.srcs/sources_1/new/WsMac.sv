@@ -29,9 +29,12 @@ module WsMac #(parameter BIT_WIDTH = 4) (
 	input en,                       // not needed here since we gate the latches in the SA, not the unit
 	input clk,
 	input [BIT_WIDTH-1:0] cin,		// partial sum to be passed in
+    output [BIT_WIDTH-1:0] my_weight,               // For dbg
 	output [BIT_WIDTH-1:0] cout		// a*w+cin
     );
 	reg [BIT_WIDTH-1:0] weight;
+
+    assign my_weight = weight;
 
 	/* falling edge to avoid collision from incoming weight */
 	always @(negedge clk) begin

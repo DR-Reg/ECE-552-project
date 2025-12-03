@@ -45,6 +45,7 @@ module MpuHsa #(parameter SIZE = 2, BIT_WIDTH = 4) (
 //	input [$clog2(SIZE)-1:0] act_col_left_edge,             
 //	input [$clog2(SIZE)-1:0] act_col_right_edge,   
     input [31:0] cycle_ctr,          
+    output [BIT_WIDTH-1:0] my_weights [SIZE-1:0][SIZE-1:0],  // for debug
 
 	output [BIT_WIDTH-1:0] result [SIZE-1:0]       // buses for outputting result
 );
@@ -78,6 +79,7 @@ module MpuHsa #(parameter SIZE = 2, BIT_WIDTH = 4) (
 					.a(act),   // get act from top latch or if first from activation
 
 					.w(weight),                                // not used in computation, but when the weight is passed in,
+                    .my_weight(my_weights[i][j]),               // just for debug
 					.wEn(wEnable),       			
 					.en(enable),				               // this signal is actually unused, we clock gate the latches below
 					.clk(clk),
