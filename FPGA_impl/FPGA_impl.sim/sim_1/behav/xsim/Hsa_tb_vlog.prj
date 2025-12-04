@@ -2,6 +2,7 @@
 verilog xil_defaultlib  --include "../../../../FPGA_impl.gen/sources_1/ip/clk_wiz_0" \
 "../../../../FPGA_impl.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v" \
 "../../../../FPGA_impl.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.v" \
+"../../../../FPGA_impl.gen/sources_1/ip/ila_0/sim/ila_0.v" \
 
 sv xil_defaultlib  --include "../../../../FPGA_impl.gen/sources_1/ip/clk_wiz_0" \
 "../../../../FPGA_impl.srcs/sources_1/new/DeMux.sv" \
@@ -13,8 +14,16 @@ sv xil_defaultlib  --include "../../../../FPGA_impl.gen/sources_1/ip/clk_wiz_0" 
 "../../../../FPGA_impl.srcs/sources_1/new/WsMac.sv" \
 "../../../../FPGA_impl.srcs/sources_1/new/Wrapper.sv" \
 "../../../../FPGA_impl.srcs/sources_1/new/MpuHsa.sv" \
+"../../../../FPGA_impl.srcs/sources_1/new/MpuHsa_Wrapper.sv" \
+"../../../../FPGA_impl.srcs/sources_1/new/Hsa.sv" \
+"../../../../FPGA_impl.srcs/sources_1/new/SynchCDC.sv" \
+"../../../../FPGA_impl.srcs/sources_1/new/SpVpu.sv" \
+"../../../../FPGA_impl.srcs/sources_1/new/SpMac.sv" \
+"../../../../FPGA_impl.srcs/sources_1/new/MpuHsa_Wrapper_latched.sv" \
 "../../../../FPGA_impl.srcs/sim_1/new/VpuHsa_tb.v" \
 "../../../../FPGA_impl.srcs/sim_1/new/MpuHsa_tb.sv" \
+"../../../../FPGA_impl.srcs/sim_1/new/Hsa_tb.sv" \
+"../../../../FPGA_impl.srcs/sim_1/new/SpVpu_tb.sv" \
 
 # compile glbl module
 verilog xil_defaultlib "glbl.v"

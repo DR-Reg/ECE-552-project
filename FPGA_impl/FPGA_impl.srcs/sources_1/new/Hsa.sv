@@ -61,7 +61,8 @@ module Hsa #(parameter SIZE = 2, BIT_WIDTH = 4) (
 				wire [BIT_WIDTH-1:0] psum;
 				wire enable, wEnable;
 				wire [BIT_WIDTH-1:0] act;
-                wire weight;
+                wire [BIT_WIDTH-1:0] weight;
+                wire [BIT_WIDTH-1:0] cin;
 
                 assign enable = en & (
                             hsa_mode ? ((i+j) <= cycle_ctr && cycle_ctr <= (i+j+SIZE))
@@ -74,6 +75,8 @@ module Hsa #(parameter SIZE = 2, BIT_WIDTH = 4) (
                                       : broadcast_channels[j];
 
                 assign weight = hsa_mode ? weights[0] : weights[i];
+
+                assign cin = j==0 ? '0 : left_latches[i][j-1];
                  
 				WsMac #(.BIT_WIDTH(BIT_WIDTH)) mac(
 					.a(act),   // get act from top latch or if first from activation
@@ -82,7 +85,7 @@ module Hsa #(parameter SIZE = 2, BIT_WIDTH = 4) (
 					.wEn(wEnable),       			
 					.en(enable),				               // this signal is actually unused, we clock gate the latches below
 					.clk(clk),
-					.cin(j==0 ? 0 : left_latches[i][j-1]),     // pass in psum from left latch, unless we are first MAC, in which
+					.cin(cin),     // pass in psum from left latch, unless we are first MAC, in which
                                                                // case no previous sum to use
                     .cout(psum)                                // the partial sum being output to be latched to the next latch
 				);
@@ -99,4 +102,11 @@ module Hsa #(parameter SIZE = 2, BIT_WIDTH = 4) (
 			assign result[i] = left_latches[i][SIZE-1];
 		end
 	endgenerate
+
+    /* DeMux the input activations to go down the correct broadcast_channels */
+    DeMux #(.BIT_WIDTH(BIT_WIDTH), .SIZE(SIZE)) demux(
+        .in(activation[0]),
+        .sel(act_col_ix),
+        .out(broadcast_channels)
+	);
 endmodule   
